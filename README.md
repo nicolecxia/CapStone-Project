@@ -7,6 +7,5 @@ Firebase Firestore
 ## Group members:  
 Qihan Wang
 Arezou Ghorbani
-
 Changqing Xia
 ## Features
