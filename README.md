@@ -4,5 +4,6 @@ For Capstone Project
 __S1G1__
 ## Data Source  
 Firebase Firestore
-
+## Group members:  
+Qihan Wang
 ## Features
