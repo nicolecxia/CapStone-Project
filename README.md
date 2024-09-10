@@ -6,4 +6,7 @@ __S1G1__
 Firebase Firestore
 ## Group members:  
 Qihan Wang
+Arezou Ghorbani
+
 ## Features
+
