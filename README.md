@@ -24,6 +24,7 @@ This app is designed to enhance the convenience of booking hairdressing services
 
 Firebase Firestore.
 App’s data source: Multi-user input ( However we still thinking about Single-user input)
+https://console.firebase.google.com/project/info-6134-capstone/firestore/databases/-default-/data
 
 ## Group members:
 
@@ -43,3 +44,9 @@ Irina Ignatenok
 2. Users can search for services provided by a hairdresser
 3. Users can add a date from the calendar to book an appointment
 4. Users can add time to book an appointment
+
+Changqing Xia
+1. Users can log in.
+2. Users can register.
+3. Users can enable dark mode.
+4. Users can add data to the cart.
