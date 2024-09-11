@@ -6,6 +6,20 @@ For Capstone Project
 
 **S1G1**
 
+## Description
+
+Hairdresser Booking App
+
+The Hairdresser Booking App is an Android-based platform designed to make it easy for clients to find, select, and book hairdressing services. Whether you're looking for a haircut, styling, or specialized treatments, this app allows users to choose the services they need, and book appointments in a few simple steps.
+
+Key Features:
+Search for Services: The app will show the specific location of salon on a map, making it easy for users to find.
+Service Cart: Users can add selected services to a "cart," enabling them to pick and choose multiple services before booking.
+Easy Booking: Once services are selected, clients can use the Calendar API to check hairdressers’ availability, select a time slot, and finalize the booking with ease.
+Real-Time Availability: The calendar ensures that available time slots are up to date, preventing double bookings and offering clients real-time appointment availability.
+
+This app is designed to enhance the convenience of booking hairdressing services, offering a streamlined experience for both clients and hairdressers, with precise location details and appointment management.
+
 ## Data Source
 
 Firebase Firestore.
