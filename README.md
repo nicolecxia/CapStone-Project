@@ -17,6 +17,9 @@ Arezou Ghorbani
 Changqing Xia
 Irina Ignatenok
 
+## App Name  
+CozyGo
+
 ## Features
 
 Irina Ignatenok
