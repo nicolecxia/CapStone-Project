@@ -56,3 +56,9 @@ Arezou Ghorbani
 2. Users can call the managers.
 3. Users have a splash screen.
 4. Users have an intro.
+
+Qihan Wang  
+1. Users can change the languages.  
+2. Users can review their appointments.  
+3. Users can add dates to their calendars.  
+4. Users can recevie notifications.  
