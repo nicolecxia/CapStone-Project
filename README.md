@@ -8,7 +8,8 @@ For Capstone Project
 
 ## Data Source
 
-Firebase Firestore
+Firebase Firestore.
+App’s data source: Multi-user input ( However we still thinking about Single-user input)
 
 ## Group members:
 
