@@ -1,11 +1,20 @@
 # CapStone-Project
+
 For Capstone Project
-## Group  
-__S1G1__
-## Data Source  
+
+## Group
+
+**S1G1**
+
+## Data Source
+
 Firebase Firestore
-## Group members:  
+
+## Group members:
+
 Qihan Wang
 Arezou Ghorbani
 Changqing Xia
+Irina Ignatenok
+
 ## Features
