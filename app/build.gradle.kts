@@ -33,6 +33,11 @@ android {
     kotlinOptions {
         jvmTarget = "1.8"
     }
+
+    buildFeatures {
+        viewBinding = true
+        dataBinding = true
+    }
 }
 
 dependencies {
@@ -45,4 +50,7 @@ dependencies {
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
+    implementation ("com.google.android.gms:play-services-maps:17.0.0")
+    implementation ("androidx.lifecycle:lifecycle-viewmodel-ktx:latest_version")
+    implementation ("androidx.lifecycle:lifecycle-livedata-ktx:latest_version")
 }
