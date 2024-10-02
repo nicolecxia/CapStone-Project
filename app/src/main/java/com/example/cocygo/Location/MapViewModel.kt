@@ -1,4 +1,4 @@
-package com.example.cocygo
+package com.example.cocygo.Location
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData

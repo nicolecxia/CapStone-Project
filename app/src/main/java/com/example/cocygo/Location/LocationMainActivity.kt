@@ -1,10 +1,11 @@
-package com.example.cocygo
+package com.example.cocygo.Location
 
 import android.os.Bundle
 import androidx.activity.enableEdgeToEdge
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
+import com.example.cocygo.R
 
 import com.example.cocygo.databinding.LocationActivityMainBinding
 import com.google.android.gms.maps.CameraUpdateFactory

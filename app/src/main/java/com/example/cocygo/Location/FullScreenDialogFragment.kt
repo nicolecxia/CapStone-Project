@@ -1,17 +1,15 @@
-package com.example.cocygo
+package com.example.cocygo.Location
 
 import android.app.Dialog
 import android.content.Context
-import android.health.connect.datatypes.ExerciseRoute.Location
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
-import android.widget.TextView
 import androidx.fragment.app.DialogFragment
 import androidx.lifecycle.ViewModelProvider
+import com.example.cocygo.R
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
