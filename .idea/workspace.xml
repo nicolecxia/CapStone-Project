@@ -5,12 +5,17 @@
       <config />
     </shared>
     <layouts>
-      <layout url="file://$PROJECT_DIR$/app/src/main/res/layout/fragment_full_screen_dialog.xml">
+      <layout url="file://$PROJECT_DIR$/app/src/main/res/layout/activity_main.xml">
         <config>
           <theme>@style/Theme.CocyGo</theme>
         </config>
       </layout>
-      <layout url="file://$PROJECT_DIR$/app/src/main/res/layout/location_activity_main.xml">
+      <layout url="file://$PROJECT_DIR$/app/src/main/res/layout/activity_slide.xml">
+        <config>
+          <theme>@style/Theme.CocyGo</theme>
+        </config>
+      </layout>
+      <layout url="file://$PROJECT_DIR$/app/src/main/res/layout/fragment_intro_slider.xml">
         <config>
           <theme>@style/Theme.CocyGo</theme>
         </config>
@@ -21,17 +26,7 @@
     <option name="autoReloadType" value="NONE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="b3ca3dd5-3d85-40ea-9785-0d865cd864c5" name="Changes" comment="Description">
-<<<<<<< Updated upstream
-      <change beforePath="$PROJECT_DIR$/.gradle/8.7/executionHistory/executionHistory.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/8.7/executionHistory/executionHistory.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/8.7/fileHashes/fileHashes.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/8.7/fileHashes/fileHashes.bin" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/8.7/fileHashes/fileHashes.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/8.7/fileHashes/fileHashes.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" afterDir="false" />
-=======
-      <change beforePath="$PROJECT_DIR$/.idea/deploymentTargetSelector.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
->>>>>>> Stashed changes
-    </list>
+    <list default="true" id="ee3eb3b2-b85c-4ba1-9480-97981b47e890" name="Changes" comment="app directory final commit" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -40,7 +35,7 @@
   <component name="ClangdSettings">
     <option name="formatViaClangd" value="false" />
   </component>
-  <component name="ExecutionTargetManager" SELECTED_TARGET="device_and_snapshot_combo_box_target[DeviceId(pluginId=LocalEmulator, isTemplate=false, identifier=path=/Users/irinaignatenok/.android/avd/Copy_of_Pixel_6a_Edited_API_VanillaIceCream.avd)]" />
+  <component name="ExecutionTargetManager" SELECTED_TARGET="device_and_snapshot_combo_box_target[DeviceId(pluginId=LocalEmulator, isTemplate=false, identifier=path=C:\Users\Administrator\.android\avd\Pixel_5_API_29.avd)]" />
   <component name="ExternalProjectsData">
     <projectState path="$PROJECT_DIR$">
       <ProjectState />
@@ -87,7 +82,6 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
-        <option value="valueResourceFile" />
         <option value="Kotlin Class" />
       </list>
     </option>
@@ -103,51 +97,49 @@
   <component name="GitHubPullRequestSearchHistory">{
   &quot;lastFilter&quot;: {
     &quot;state&quot;: &quot;OPEN&quot;,
-    &quot;assignee&quot;: &quot;irinaignatenok&quot;
+    &quot;assignee&quot;: &quot;Arezou-Ghorbani&quot;
   }
 }</component>
   <component name="GithubPullRequestsUISettings">{
   &quot;selectedUrlAndAccountId&quot;: {
     &quot;url&quot;: &quot;https://github.com/nicolecxia/CapStone-Project.git&quot;,
-    &quot;accountId&quot;: &quot;3eda2b5d-7088-4a6b-844b-a1a3f0e78e07&quot;
+    &quot;accountId&quot;: &quot;a86514fa-ffe5-47c1-a54f-15ae27b60cbf&quot;
   }
 }</component>
   <component name="ProblemsViewState">
     <option name="selectedTabId" value="CurrentFile" />
   </component>
   <component name="ProjectColorInfo">{
-  &quot;associatedIndex&quot;: 1
+  &quot;associatedIndex&quot;: 0
 }</component>
-  <component name="ProjectId" id="2lu5yefNkgOBsDeyHhooI0d57vX" />
+  <component name="ProjectId" id="2mt4Gu8nnmZe2i8uSKadAKA4esE" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
   <component name="PropertiesComponent">{
   &quot;keyToString&quot;: {
-    &quot;ASKED_ADD_EXTERNAL_FILES&quot;: &quot;true&quot;,
-    &quot;ASKED_SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
     &quot;Android App.app.executor&quot;: &quot;Run&quot;,
     &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
     &quot;RunOnceActivity.cidr.known.project.marker&quot;: &quot;true&quot;,
     &quot;RunOnceActivity.readMode.enableVisualFormatting&quot;: &quot;true&quot;,
     &quot;cf.first.check.clang-format&quot;: &quot;false&quot;,
     &quot;cidr.known.project.marker&quot;: &quot;true&quot;,
-    &quot;com.google.services.firebase.aqiPopupShown&quot;: &quot;true&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;Irina-Ignatenok&quot;,
     &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
-    &quot;last_opened_file_path&quot;: &quot;/Users/irinaignatenok/Desktop/capstone/CapStone-Project&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;experimental&quot;
+    &quot;last_opened_file_path&quot;: &quot;C:/thirdSemester/Android/CapStone-Project/app/src/main/res/layout&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;AndroidSdkUpdater&quot;
   },
   &quot;keyToStringList&quot;: {
     &quot;kotlin-gradle-user-dirs&quot;: [
-      &quot;/Users/irinaignatenok/.gradle&quot;
+      &quot;C:\\Users\\Administrator\\.gradle&quot;
     ]
   }
 }</component>
   <component name="RecentsManager">
-    <key name="MoveKotlinTopLevelDeclarationsDialog.RECENTS_KEY">
-      <recent name="com.example.cocygo.Location" />
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\thirdSemester\Android\CapStone-Project\app\src\main\res\layout" />
+      <recent name="C:\thirdSemester\Android\CapStone-Project\app\src\main\java\com\example\cocygo\intro" />
     </key>
   </component>
   <component name="RunManager">
@@ -221,21 +213,93 @@
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
-      <changelist id="b3ca3dd5-3d85-40ea-9785-0d865cd864c5" name="Changes" comment="" />
-      <created>1726017376532</created>
+      <changelist id="ee3eb3b2-b85c-4ba1-9480-97981b47e890" name="Changes" comment="" />
+      <created>1727882449583</created>
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
-      <updated>1726017376532</updated>
+      <updated>1727882449583</updated>
     </task>
-    <task id="LOCAL-00001" summary="Description">
+    <task id="LOCAL-00001" summary="intro Slider dependencies added">
       <option name="closed" value="true" />
-      <created>1726018152972</created>
+      <created>1727892692273</created>
       <option name="number" value="00001" />
       <option name="presentableId" value="LOCAL-00001" />
       <option name="project" value="LOCAL" />
-      <updated>1726018152972</updated>
+      <updated>1727892692273</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="activity_slide.xml designed and implemented">
+      <option name="closed" value="true" />
+      <created>1727909237338</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1727909237338</updated>
+    </task>
+    <task id="LOCAL-00003" summary="activity_main.xml designed and implemented">
+      <option name="closed" value="true" />
+      <created>1727909267331</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1727909267331</updated>
+    </task>
+    <task id="LOCAL-00004" summary="intro icons added to  project">
+      <option name="closed" value="true" />
+      <created>1727909417802</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1727909417802</updated>
+    </task>
+    <task id="LOCAL-00005" summary="ubunto font added to project">
+      <option name="closed" value="true" />
+      <created>1727909479031</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1727909479031</updated>
+    </task>
+    <task id="LOCAL-00006" summary="String file updated and animation added to main Activity">
+      <option name="closed" value="true" />
+      <created>1727909604234</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1727909604234</updated>
+    </task>
+    <task id="LOCAL-00007" summary="ViewPageAdapter implemented">
+      <option name="closed" value="true" />
+      <created>1727909645305</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1727909645305</updated>
+    </task>
+    <task id="LOCAL-00008" summary="Manifest updated">
+      <option name="closed" value="true" />
+      <created>1727909676454</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1727909676454</updated>
+    </task>
+    <task id="LOCAL-00009" summary="fadein animation added">
+      <option name="closed" value="true" />
+      <created>1727909852686</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1727909852686</updated>
+    </task>
+    <task id="LOCAL-00010" summary="app directory final commit">
+      <option name="closed" value="true" />
+      <created>1727910114309</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1727910114309</updated>
+    </task>
+    <option name="localTasksCounter" value="11" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -243,26 +307,23 @@
       <map>
         <entry key="MAIN">
           <value>
-            <State>
-              <option name="FILTERS">
-                <map>
-                  <entry key="branch">
-                    <value>
-                      <list>
-                        <option value="Irina-Ignatenok" />
-                      </list>
-                    </value>
-                  </entry>
-                </map>
-              </option>
-            </State>
+            <State />
           </value>
         </entry>
       </map>
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Description" />
-    <option name="LAST_COMMIT_MESSAGE" value="Description" />
+    <MESSAGE value="intro Slider dependencies added" />
+    <MESSAGE value="activity_slide.xml designed and implemented" />
+    <MESSAGE value="activity_main.xml designed and implemented" />
+    <MESSAGE value="intro icons added to  project" />
+    <MESSAGE value="ubunto font added to project" />
+    <MESSAGE value="String file updated and animation added to main Activity" />
+    <MESSAGE value="ViewPageAdapter implemented" />
+    <MESSAGE value="Manifest updated" />
+    <MESSAGE value="fadein animation added" />
+    <MESSAGE value="app directory final commit" />
+    <option name="LAST_COMMIT_MESSAGE" value="app directory final commit" />
   </component>
 </project>
