@@ -1,0 +1,190 @@
+Index: .idea/libraries/Gradle__androidx_databinding_viewbinding_8_4_0_aar.xml
+===================================================================
+diff --git a/.idea/libraries/Gradle__androidx_databinding_viewbinding_8_4_0_aar.xml b/.idea/libraries/Gradle__androidx_databinding_viewbinding_8_4_0_aar.xml
+deleted file mode 100644
+--- a/.idea/libraries/Gradle__androidx_databinding_viewbinding_8_4_0_aar.xml	
++++ /dev/null	
+@@ -1,12 +0,0 @@
+-<component name="libraryTable">
+-  <library name="Gradle: androidx.databinding:viewbinding:8.4.0@aar" external-system-id="GRADLE">
+-    <CLASSES>
+-      <root url="jar://$PROJECT_DIR$/../../../Android/Android-MAP3/lab1/gradle/caches/transforms-4/1d48d0f6a269ffddacb556d84b57709a/transformed/viewbinding-8.4.0/jars/classes.jar!/" />
+-      <root url="file://$PROJECT_DIR$/../../../Android/Android-MAP3/lab1/gradle/caches/transforms-4/1d48d0f6a269ffddacb556d84b57709a/transformed/viewbinding-8.4.0/AndroidManifest.xml" />
+-    </CLASSES>
+-    <JAVADOC />
+-    <SOURCES>
+-      <root url="jar://$PROJECT_DIR$/../../../Android/Android-MAP3/lab1/gradle/caches/modules-2/files-2.1/androidx.databinding/viewbinding/8.4.0/8280d552f4b01d69d9fd5487e627b26990a68bd3/viewbinding-8.4.0-sources.jar!/" />
+-    </SOURCES>
+-  </library>
+-</component>
+\ No newline at end of file
+Index: app/src/main/res/layout/fragment_intro.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/app/src/main/res/layout/fragment_intro.xml b/app/src/main/res/layout/fragment_intro.xml
+new file mode 100644
+--- /dev/null	
++++ b/app/src/main/res/layout/fragment_intro.xml	
+@@ -0,0 +1,14 @@
++<?xml version="1.0" encoding="utf-8"?>
++<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
++    xmlns:tools="http://schemas.android.com/tools"
++    android:layout_width="match_parent"
++    android:layout_height="match_parent"
++    tools:context=".intro.IntroFragment">
++
++    <!-- TODO: Update blank fragment layout -->
++    <TextView
++        android:layout_width="match_parent"
++        android:layout_height="match_parent"
++        android:text="@string/hello_blank_fragment" />
++
++</FrameLayout>
+\ No newline at end of file
+Index: app/src/main/java/com/example/cocygo/intro/IntroSliderFragment.kt
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/app/src/main/java/com/example/cocygo/intro/IntroSliderFragment.kt b/app/src/main/java/com/example/cocygo/intro/IntroSliderFragment.kt
+new file mode 100644
+--- /dev/null	
++++ b/app/src/main/java/com/example/cocygo/intro/IntroSliderFragment.kt	
+@@ -0,0 +1,28 @@
++package com.example.cocygo.intro
++
++import android.os.Bundle
++import androidx.fragment.app.Fragment
++import android.view.LayoutInflater
++import android.view.View
++import android.view.ViewGroup
++import com.example.cocygo.R
++
++
++class IntroSliderFragment : Fragment() {
++
++
++    override fun onCreate(savedInstanceState: Bundle?) {
++        super.onCreate(savedInstanceState)
++
++    }
++
++    override fun onCreateView(
++        inflater: LayoutInflater, container: ViewGroup?,
++        savedInstanceState: Bundle?
++    ): View? {
++        // Inflate the layout for this fragment
++        return inflater.inflate(R.layout.fragment_intro_slider, container, false)
++    }
++
++
++}
+\ No newline at end of file
+Index: app/src/main/res/layout/fragment_intro_slider.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/app/src/main/res/layout/fragment_intro_slider.xml b/app/src/main/res/layout/fragment_intro_slider.xml
+new file mode 100644
+--- /dev/null	
++++ b/app/src/main/res/layout/fragment_intro_slider.xml	
+@@ -0,0 +1,14 @@
++<?xml version="1.0" encoding="utf-8"?>
++<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
++    xmlns:tools="http://schemas.android.com/tools"
++    android:layout_width="match_parent"
++    android:layout_height="match_parent"
++    tools:context=".intro.IntroSliderFragment">
++
++    <!-- TODO: Update blank fragment layout -->
++    <TextView
++        android:layout_width="match_parent"
++        android:layout_height="match_parent"
++        android:text="@string/hello_blank_fragment" />
++
++</FrameLayout>
+\ No newline at end of file
+Index: local.properties
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>## This file must *NOT* be checked into Version Control Systems,\r\n# as it contains information specific to your local configuration.\r\n#\r\n# Location of the SDK. This is only used by Gradle.\r\n# For customization when using a Version Control System, please read the\r\n# header note.\r\n#Thu Sep 26 22:28:08 EDT 2024\r\nsdk.dir=/Users/nicolexia/Library/Android/sdk\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>ISO-8859-1
+===================================================================
+diff --git a/local.properties b/local.properties
+--- a/local.properties	
++++ b/local.properties	
+@@ -4,5 +4,5 @@
+ # Location of the SDK. This is only used by Gradle.
+ # For customization when using a Version Control System, please read the
+ # header note.
+-#Thu Sep 26 22:28:08 EDT 2024
+-sdk.dir=/Users/nicolexia/Library/Android/sdk
++#Wed Oct 02 11:22:25 EDT 2024
++sdk.dir=C\:\\Users\\Administrator\\AppData\\Local\\Android\\Sdk
+Index: app/src/main/AndroidManifest.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"utf-8\"?>\r\n<manifest xmlns:android=\"http://schemas.android.com/apk/res/android\"\r\n    xmlns:tools=\"http://schemas.android.com/tools\">\r\n\r\n    <application\r\n        android:allowBackup=\"true\"\r\n        android:dataExtractionRules=\"@xml/data_extraction_rules\"\r\n        android:fullBackupContent=\"@xml/backup_rules\"\r\n        android:icon=\"@mipmap/ic_launcher\"\r\n        android:label=\"@string/app_name\"\r\n        android:roundIcon=\"@mipmap/ic_launcher_round\"\r\n        android:supportsRtl=\"true\"\r\n        android:theme=\"@style/Theme.CocyGo\"\r\n        tools:targetApi=\"31\">\r\n        <activity\r\n            android:name=\".SignUpActivity\"\r\n            android:exported=\"false\" />\r\n        <activity\r\n            android:name=\".SignInActivity\"\r\n            android:exported=\"true\">\r\n            <intent-filter>\r\n                <action android:name=\"android.intent.action.MAIN\" />\r\n\r\n                <category android:name=\"android.intent.category.LAUNCHER\" />\r\n            </intent-filter>\r\n        </activity>\r\n        <activity\r\n            android:name=\".MainActivity\"\r\n            android:exported=\"true\">\r\n\r\n        </activity>\r\n    </application>\r\n\r\n</manifest>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/app/src/main/AndroidManifest.xml b/app/src/main/AndroidManifest.xml
+--- a/app/src/main/AndroidManifest.xml	
++++ b/app/src/main/AndroidManifest.xml	
+@@ -12,9 +12,9 @@
+         android:supportsRtl="true"
+         android:theme="@style/Theme.CocyGo"
+         tools:targetApi="31">
+-        <activity
+-            android:name=".SignUpActivity"
+-            android:exported="false" />
++<!--        <activity-->
++<!--            android:name=".SignUpActivity"-->
++<!--            android:exported="false" />-->
+         <activity
+             android:name=".SignInActivity"
+             android:exported="true">
+Index: app/src/main/res/values/strings.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><resources>\r\n    <string name=\"app_name\">CocyGo</string>\r\n</resources>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/app/src/main/res/values/strings.xml b/app/src/main/res/values/strings.xml
+--- a/app/src/main/res/values/strings.xml	
++++ b/app/src/main/res/values/strings.xml	
+@@ -1,3 +1,5 @@
+ <resources>
+     <string name="app_name">CocyGo</string>
++    <!-- TODO: Remove or change this placeholder text -->
++    <string name="hello_blank_fragment">Hello blank fragment</string>
+ </resources>
+\ No newline at end of file
+Index: .idea/libraries/Gradle__androidx_databinding_viewbinding_8_5_1_aar.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/.idea/libraries/Gradle__androidx_databinding_viewbinding_8_5_1_aar.xml b/.idea/libraries/Gradle__androidx_databinding_viewbinding_8_5_1_aar.xml
+new file mode 100644
+--- /dev/null	
++++ b/.idea/libraries/Gradle__androidx_databinding_viewbinding_8_5_1_aar.xml	
+@@ -0,0 +1,12 @@
++<component name="libraryTable">
++  <library name="Gradle: androidx.databinding:viewbinding:8.5.1@aar" external-system-id="GRADLE">
++    <CLASSES>
++      <root url="jar://$USER_HOME$/.gradle/caches/transforms-4/f4e18489add589c89f85a4c1ccd283c1/transformed/viewbinding-8.5.1/jars/classes.jar!/" />
++      <root url="file://$USER_HOME$/.gradle/caches/transforms-4/f4e18489add589c89f85a4c1ccd283c1/transformed/viewbinding-8.5.1/AndroidManifest.xml" />
++    </CLASSES>
++    <JAVADOC />
++    <SOURCES>
++      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/androidx.databinding/viewbinding/8.5.1/2e953018e3dff4124e267f047320a0c58304af59/viewbinding-8.5.1-sources.jar!/" />
++    </SOURCES>
++  </library>
++</component>
+\ No newline at end of file
