@@ -43,7 +43,7 @@ class IntroSliderFragment : Fragment() {
         val imageFragment = view.findViewById<ImageView>(R.id.imageFragment)
         when (param1) {
             "3" -> {
-                textFragment[1].visibility = View.GONE
+              //  textFragment[0].visibility = View.GONE
                 textFragment[0].text = resources.getString(R.string.text_intro4)
                 imageFragment.setBackgroundResource(R.drawable.ic_rest)
 

@@ -92,7 +92,7 @@ class FullScreenDialogFragment : DialogFragment(), OnMapReadyCallback {
         return view
     }
 
-    override fun onMapReady(map: GoogleMap?) {
+    override fun onMapReady(map: GoogleMap) {
         if (map != null) {
             googleMap = map
             // Add a marker for the initial location
@@ -117,6 +117,8 @@ class FullScreenDialogFragment : DialogFragment(), OnMapReadyCallback {
             ViewGroup.LayoutParams.MATCH_PARENT
         )
     }
+
+
 }
 
 

@@ -1,4 +1,4 @@
-package com.example.slidepage
+package com.example.cocygo.intro
 
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
