@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     package="com.example.cocygo">
 
-<uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
 
     <application
@@ -16,11 +16,18 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.CocyGo"
         tools:targetApi="31">
+        <activity
+            android:name=".Location.Calander.MainActivityCalander"
+            android:parentActivityName=".Location.Calander.MainActivityCalander"
+            android:exported="false" />
+
         <meta-data
+
             android:name="com.google.android.geo.API_KEY"
             android:value="${apiKey}" />
+
         <activity
-            android:name=".Location.LocationMainActivity"
+            android:name=".Location.Location.MainActivityLocation"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
