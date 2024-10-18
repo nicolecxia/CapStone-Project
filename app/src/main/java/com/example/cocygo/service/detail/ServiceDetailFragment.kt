@@ -40,6 +40,8 @@ class ServiceDetailFragment : Fragment() {
         serviceDetailViewModel =
             ViewModelProvider(requireActivity())[ServiceDetailViewModel::class.java]
 
+
+//        Todo:change to show the service detail by get infomation from list page and show image by base64
         servicesListViewModel.serviceLists.observe(requireActivity()) { serviceLists ->
             binding?.title?.text = serviceLists[0].serviceName
             binding?.subhead?.text = serviceLists[0].stylist
