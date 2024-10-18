@@ -1,13 +1,13 @@
 <component name="libraryTable">
   <library name="Gradle: androidx.lifecycle:lifecycle-livedata:2.6.2@aar" external-system-id="GRADLE">
     <CLASSES>
-      <root url="file://$PROJECT_DIR$/../../../Android/Android-MAP3/lab1/gradle/caches/transforms-4/7f94577cc52758372c23ee801ecb8f19/transformed/lifecycle-livedata-2.6.2/res" />
-      <root url="jar://$PROJECT_DIR$/../../../Android/Android-MAP3/lab1/gradle/caches/transforms-4/7f94577cc52758372c23ee801ecb8f19/transformed/lifecycle-livedata-2.6.2/jars/classes.jar!/" />
-      <root url="file://$PROJECT_DIR$/../../../Android/Android-MAP3/lab1/gradle/caches/transforms-4/7f94577cc52758372c23ee801ecb8f19/transformed/lifecycle-livedata-2.6.2/AndroidManifest.xml" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-4/7c2565fb1a8a0561a4a22c0fcf492c96/transformed/lifecycle-livedata-2.6.2/res" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-4/7c2565fb1a8a0561a4a22c0fcf492c96/transformed/lifecycle-livedata-2.6.2/AndroidManifest.xml" />
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-4/7c2565fb1a8a0561a4a22c0fcf492c96/transformed/lifecycle-livedata-2.6.2/jars/classes.jar!/" />
     </CLASSES>
     <JAVADOC />
     <SOURCES>
-      <root url="jar://$PROJECT_DIR$/../../../Android/Android-MAP3/lab1/gradle/caches/modules-2/files-2.1/androidx.lifecycle/lifecycle-livedata/2.6.2/7ee67be9804a0951093b89b1115f95facb1d823/lifecycle-livedata-2.6.2-sources.jar!/" />
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/androidx.lifecycle/lifecycle-livedata/2.6.2/7ee67be9804a0951093b89b1115f95facb1d823/lifecycle-livedata-2.6.2-sources.jar!/" />
     </SOURCES>
   </library>
 </component>
