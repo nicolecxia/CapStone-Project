@@ -1,15 +1,18 @@
 package com.example.cocygo.service.list
 
+import android.content.Context
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.ViewModelProvider
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.cocygo.R
 import com.example.cocygo.databinding.FragmentServicesListBinding
 import com.example.cocygo.service.detail.ServiceDetailFragment
 import com.example.cocygo.service.detail.ServiceDetailViewModel
+import com.example.cocygo.service.model.Service
 import com.example.cocygo.signIn.SignInViewModel
 import com.google.firebase.auth.FirebaseAuth
 
@@ -61,30 +64,32 @@ class ServicesListFragment : Fragment() {
             signInViewModel.signOut()
         }
 
-        binding?.btnAdd?.setOnClickListener {
-//            servicesListViewModel.addToCart("123","Test add to cart")
+        servicesListViewModel.getServiceList()
 
-//            servicesListViewModel.getCartByUser("123")
+//        binding?.btnAdd?.setOnClickListener {
+////            servicesListViewModel.addToCart("123","Test add to cart")
+//
+////            servicesListViewModel.getCartByUser("123")
+//
+////            servicesListViewModel.getServiceList()
+//
+////            servicesListViewModel.duplicateDocument("ServiceList/yD2O2smrV8TYD3eTQRmd","ServiceList/XUwXDjBNl96dnYmVLp7g")
+//        }
 
-            servicesListViewModel.getServiceList()
+        listinLiveData(requireActivity())
 
-//            servicesListViewModel.duplicateDocument("ServiceList/yD2O2smrV8TYD3eTQRmd","ServiceList/XUwXDjBNl96dnYmVLp7g")
-        }
-
-        listinLiveData()
-
-        binding?.textView3?.setOnClickListener {
-            //Todo: update the currect service
-
-
-            //transaction to new fragment
-            val serviceDetailFragment = ServiceDetailFragment()
-            //  addToBackStack(null) allows the user to press the back button to return to FirstFragment.
-            parentFragmentManager.beginTransaction()
-                .replace(R.id.fragmentContainer, serviceDetailFragment)
-                .addToBackStack(null)
-                .commit()
-        }
+//        binding?.textView3?.setOnClickListener {
+//            //Todo: update the currect service
+//
+//
+//            //transaction to new fragment
+//            val serviceDetailFragment = ServiceDetailFragment()
+//            //  addToBackStack(null) allows the user to press the back button to return to FirstFragment.
+//            parentFragmentManager.beginTransaction()
+//                .replace(R.id.fragmentContainer, serviceDetailFragment)
+//                .addToBackStack(null)
+//                .commit()
+//        }
     }
 
     override fun onDestroyView() {
@@ -92,22 +97,29 @@ class ServicesListFragment : Fragment() {
         binding = null
     }
 
-    private fun listinLiveData() {
-        servicesListViewModel.cartLists.observe(requireActivity()) { cartLists ->
-            var value: String = ""
-            for (cart in cartLists) {
-                value += "${cart.userID}/${cart.serviceID} \n"
-            }
-            binding?.textView3?.text = value
-        }
-
+    private fun listinLiveData(context: Context) {
         servicesListViewModel.serviceLists.observe(requireActivity()) { serviceLists ->
-            var value: String = ""
-            for (service in serviceLists) {
-                value += "${service.serviceName}/${service.stylist} \n"
+            val adapter = ServiceAdapter(serviceLists){ service ->
+                // Handle the click event
+                showMovieDetails(service)
             }
-            binding?.textView3?.text = value
+            // Find the RecyclerView in the layout
+            val recyclerView = binding?.rvServiceList
+
+            recyclerView?.layoutManager = LinearLayoutManager(context)
+            recyclerView?.adapter = adapter
         }
+    }
+
+    // Function to show details or perform an action when a movie is clicked
+    private fun showMovieDetails(service: Service ) {
+        //transaction to new fragment
+        val serviceDetailFragment = ServiceDetailFragment()
+        //  addToBackStack(null) allows the user to press the back button to return to FirstFragment.
+        parentFragmentManager.beginTransaction()
+            .replace(R.id.fragmentContainer, serviceDetailFragment)
+            .addToBackStack(null)
+            .commit()
     }
 
     companion object {
