@@ -7,12 +7,18 @@ import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Handler
 import android.os.Looper
+import android.util.Log
 import android.view.View
 import android.view.animation.AnimationUtils
 import android.widget.ImageView
+import androidx.lifecycle.MutableLiveData
+import com.example.cocygo.homeFragment.adapter.Service
 import com.example.cocygo.intro.SlidePageMenuFragment
+import com.google.firebase.Firebase
+import com.google.firebase.firestore.firestore
 
 class MainActivity : AppCompatActivity() {
+
     @SuppressLint("ResourceType")
     override fun onCreate(savedInstanceState: Bundle?) {
         //Show the Hi data name
@@ -46,4 +52,5 @@ class MainActivity : AppCompatActivity() {
             introIV.visibility = View.GONE
         }, 5000) // 5000 milliseconds = 5 seconds
     }
+
 }

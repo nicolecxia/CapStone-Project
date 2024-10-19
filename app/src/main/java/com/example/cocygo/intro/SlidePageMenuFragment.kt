@@ -6,15 +6,17 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
-import android.widget.Toast
 import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.findNavController
 import androidx.viewpager2.widget.ViewPager2
 import com.example.cocygo.MainActivity
 import com.example.cocygo.R
+import com.example.cocygo.homeFragment.HomeFragment
 import com.tbuonomo.viewpagerdotsindicator.DotsIndicator
 
 class SlidePageMenuFragment : Fragment() {
     private var name = ""
+    private var userLoggedIn: Boolean = true
     private lateinit var vp: ViewPager2
     private lateinit var switchButton: ViewPager2.OnPageChangeCallback
 
@@ -23,7 +25,7 @@ class SlidePageMenuFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        val view = inflater.inflate(R.layout.activity_slide, container, false)
+        val view = inflater.inflate(R.layout.fragment_slider, container, false)
 
         vp = view.findViewById(R.id.slideVP)
         val dotsSlide = view.findViewById<DotsIndicator>(R.id.dots_indicator)
@@ -64,12 +66,17 @@ class SlidePageMenuFragment : Fragment() {
                         startActivity(this)
                     }
                 }
+
                 else -> {
-                    Toast.makeText(
-                        requireContext(),
-                        "transferring to Login/Register Page",
-                        Toast.LENGTH_SHORT
-                    ).show()
+                    if (userLoggedIn) {
+                        //transaction to new fragment
+                        val homeFragment = HomeFragment()
+                        //  addToBackStack(null) allows the user to press the back button to return to FirstFragment.
+                        parentFragmentManager.beginTransaction()
+                            .replace(R.id.fragment_container, homeFragment)
+                            .addToBackStack(null)
+                            .commit()
+                    }
                 }
             }
         }
