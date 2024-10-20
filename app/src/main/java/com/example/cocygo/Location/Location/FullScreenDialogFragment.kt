@@ -1,4 +1,4 @@
-package com.example.cocygo.Location
+package com.example.cocygo.Location.Location
 
 import android.app.Dialog
 import android.content.Context

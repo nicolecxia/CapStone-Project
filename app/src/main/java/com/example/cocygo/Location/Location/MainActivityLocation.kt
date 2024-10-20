@@ -1,23 +1,29 @@
-package com.example.cocygo.Location
+package com.example.cocygo.Location.Location
 
+import android.content.Intent
 import android.os.Bundle
+import android.view.View
+import android.widget.Toolbar
 import androidx.activity.enableEdgeToEdge
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
+import com.example.cocygo.Location.Calander.CalanderFragment
+import com.example.cocygo.Location.Calander.HomeFragment
 import com.example.cocygo.R
-
-import com.example.cocygo.databinding.LocationActivityMainBinding
+import com.example.cocygo.databinding.ActivityMainLocationBinding
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.SupportMapFragment
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.MarkerOptions
+import com.google.firebase.FirebaseApp
 
-class LocationMainActivity : AppCompatActivity(), OnMapReadyCallback, FullScreenDialogFragment.FullScreenDialogListener {
+class MainActivityLocation : AppCompatActivity(), OnMapReadyCallback,
+    FullScreenDialogFragment.FullScreenDialogListener {
 
-    private lateinit var binding: LocationActivityMainBinding
+    private lateinit var binding: ActivityMainLocationBinding
 
     private lateinit var googleMap: GoogleMap
     private val mapViewModel: MapViewModel by viewModels()
@@ -27,11 +33,32 @@ class LocationMainActivity : AppCompatActivity(), OnMapReadyCallback, FullScreen
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = LocationActivityMainBinding.inflate(layoutInflater)
+        binding = ActivityMainLocationBinding.inflate(layoutInflater)
 //
         enableEdgeToEdge()
         setContentView(binding.root)
+binding.buttonBook.setOnClickListener{
+    binding.buttonBook.visibility = View.GONE
+    if (savedInstanceState == null) {
+        supportFragmentManager.beginTransaction()
+            .replace(R.id.calender, CalanderFragment())
+            .commit()
+    }
+}
 
+
+        // Set the button click listener to show the fragment
+//        binding.buttonShowFragment.setOnClickListener {
+//            val homeFragment = HomeFragment() // Create an instance of your fragment
+//            supportFragmentManager.beginTransaction()
+//                .replace(R.id.fragment_container, homeFragment) // R.id.fragment_container is the ID of the container
+//                .addToBackStack(null) // Optional: adds the transaction to the back stack
+//                .commit()
+//        }
+    FirebaseApp.initializeApp(this)
+
+
+//}
         // Get the SupportMapFragment and request notification when the map is ready to be used.
         val mapFragment = supportFragmentManager
             .findFragmentById(R.id.map_fragment) as SupportMapFragment
@@ -47,6 +74,7 @@ class LocationMainActivity : AppCompatActivity(), OnMapReadyCallback, FullScreen
             }
         })
     }
+
 
     override fun onMapReady(map: GoogleMap) {
         googleMap = map
