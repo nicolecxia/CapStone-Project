@@ -17,6 +17,7 @@
         android:theme="@style/Theme.CocyGo"
         tools:targetApi="31">
         <activity
+<<<<<<< HEAD
             android:name=".Location.Calander.MainActivityCalander"
             android:parentActivityName=".Location.Calander.MainActivityCalander"
             android:exported="false" />
@@ -28,6 +29,9 @@
 
         <activity
             android:name=".Location.Location.MainActivityLocation"
+=======
+            android:name=".MainActivity"
+>>>>>>> changqing-xia
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

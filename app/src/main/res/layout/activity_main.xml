@@ -7,6 +7,7 @@
     android:background="#F5DF4D"
     tools:context=".MainActivity">
 
+<<<<<<< HEAD
     <ImageView
         android:id="@+id/image_welcome"
         android:layout_width="250dp"
@@ -14,10 +15,19 @@
         android:contentDescription="@string/app_name"
         android:src="@drawable/ic_hello"
         android:layout_marginTop="200dp"
+=======
+    <androidx.fragment.app.FragmentContainerView
+        android:id="@+id/fragmentContainer"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginTop="0dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+>>>>>>> changqing-xia
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
+<<<<<<< HEAD
 
     <TextView
         android:id="@+id/text_welcome"
@@ -36,4 +46,6 @@
         app:layout_constraintTop_toBottomOf="@+id/image_welcome" />
 
 
+=======
+>>>>>>> changqing-xia
 </androidx.constraintlayout.widget.ConstraintLayout>
