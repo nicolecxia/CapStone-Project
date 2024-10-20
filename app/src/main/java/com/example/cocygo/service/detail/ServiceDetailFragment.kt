@@ -8,14 +8,15 @@ import android.view.ViewGroup
 import androidx.lifecycle.ViewModelProvider
 import com.example.cocygo.R
 import com.example.cocygo.databinding.FragmentServiceDetailBinding
+import com.example.cocygo.service.list.ServiceAdapter
 import com.example.cocygo.service.list.ServicesListViewModel
+import com.example.cocygo.service.model.Base64ToBitmap
 
 
 class ServiceDetailFragment : Fragment() {
     private var binding: FragmentServiceDetailBinding? = null
 
     //ViewModel
-    private lateinit var servicesListViewModel: ServicesListViewModel
     private lateinit var serviceDetailViewModel: ServiceDetailViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -35,17 +36,19 @@ class ServiceDetailFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        servicesListViewModel =
-            ViewModelProvider(requireActivity())[ServicesListViewModel::class.java]
         serviceDetailViewModel =
             ViewModelProvider(requireActivity())[ServiceDetailViewModel::class.java]
 
+        serviceDetailViewModel.serviceInfo.observe((requireActivity())){service ->
 
-//        Todo:change to show the service detail by get infomation from list page and show image by base64
-        servicesListViewModel.serviceLists.observe(requireActivity()) { serviceLists ->
-            binding?.title?.text = serviceLists[0].serviceName
-            binding?.subhead?.text = serviceLists[0].stylist
-            binding?.body?.text = serviceLists[0].description
+            binding?.title?.text = service.serviceName
+            binding?.subhead?.text = "Duration: ${service.duration}mins\nStylist: ${service.stylist}"
+            binding?.body?.text = service.description
+
+            //show image
+            val imageName = service.image
+            val bitmap = Base64ToBitmap.decodeBase64ToBitmap(imageName)
+            binding?.headerImage?.setImageBitmap(bitmap)
         }
     }
 

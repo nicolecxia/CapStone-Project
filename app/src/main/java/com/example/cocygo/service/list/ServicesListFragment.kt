@@ -1,7 +1,10 @@
 package com.example.cocygo.service.list
 
 import android.content.Context
+import android.graphics.Bitmap
+import android.graphics.BitmapFactory
 import android.os.Bundle
+import android.util.Base64
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -59,37 +62,14 @@ class ServicesListFragment : Fragment() {
         serviceDetailViewModel =
             ViewModelProvider(requireActivity())[ServiceDetailViewModel::class.java]
 
-        binding?.tvUserInfo?.text = firebaseAuth.currentUser?.email.toString()
+        binding?.tvUserInfo?.text =  "Welcome ${firebaseAuth.currentUser?.email.toString()}"
         binding?.btnSignOut?.setOnClickListener {
             signInViewModel.signOut()
         }
 
         servicesListViewModel.getServiceList()
 
-//        binding?.btnAdd?.setOnClickListener {
-////            servicesListViewModel.addToCart("123","Test add to cart")
-//
-////            servicesListViewModel.getCartByUser("123")
-//
-////            servicesListViewModel.getServiceList()
-//
-////            servicesListViewModel.duplicateDocument("ServiceList/yD2O2smrV8TYD3eTQRmd","ServiceList/XUwXDjBNl96dnYmVLp7g")
-//        }
-
         listinLiveData(requireActivity())
-
-//        binding?.textView3?.setOnClickListener {
-//            //Todo: update the currect service
-//
-//
-//            //transaction to new fragment
-//            val serviceDetailFragment = ServiceDetailFragment()
-//            //  addToBackStack(null) allows the user to press the back button to return to FirstFragment.
-//            parentFragmentManager.beginTransaction()
-//                .replace(R.id.fragmentContainer, serviceDetailFragment)
-//                .addToBackStack(null)
-//                .commit()
-//        }
     }
 
     override fun onDestroyView() {
@@ -111,8 +91,11 @@ class ServicesListFragment : Fragment() {
         }
     }
 
-    // Function to show details or perform an action when a movie is clicked
+    // Function to show details or perform an action when a service is clicked
     private fun showMovieDetails(service: Service ) {
+       //update current tapped service info
+        serviceDetailViewModel.serviceInfo.value = service
+
         //transaction to new fragment
         val serviceDetailFragment = ServiceDetailFragment()
         //  addToBackStack(null) allows the user to press the back button to return to FirstFragment.

@@ -8,6 +8,7 @@ import com.example.cocygo.service.model.Service
 import com.google.firebase.Firebase
 import com.google.firebase.firestore.firestore
 
+
 class ServicesListViewModel:ViewModel() {
     val db = Firebase.firestore
 
@@ -116,4 +117,5 @@ class ServicesListViewModel:ViewModel() {
                 println("Error fetching original document: $e")
             }
     }
+
 }
