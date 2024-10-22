@@ -1,15 +1,12 @@
 package com.example.cocygo.Location.Location
 
-import android.content.Intent
 import android.os.Bundle
 import android.view.View
-import android.widget.Toolbar
 import androidx.activity.enableEdgeToEdge
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
-import com.example.cocygo.Location.Calander.CalanderFragment
-import com.example.cocygo.Location.Calander.HomeFragment
+import com.example.cocygo.Location.Calander.view.CalanderFragment
 import com.example.cocygo.R
 import com.example.cocygo.databinding.ActivityMainLocationBinding
 import com.google.android.gms.maps.CameraUpdateFactory
