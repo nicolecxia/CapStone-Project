@@ -1,4 +1,4 @@
-package com.example.cocygo
+package com.qw1180046.sprint2
 
 import android.content.Intent
 import android.os.Bundle
@@ -9,12 +9,13 @@ import android.widget.Toast
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.fragment.app.Fragment
-import com.example.cocygo.databinding.ActivitySignUpBinding
+//import com.example.cocygo.databinding.FragmentSignUpBinding
+import com.qw1180046.sprint2.databinding.FragmentSignUpBinding
 import com.google.firebase.auth.FirebaseAuth
 
 class SignUpFragment : Fragment() {
 
-    private var _binding: ActivitySignUpBinding? = null
+    private var _binding: FragmentSignUpBinding? = null
     private val binding get() = _binding!!
     private lateinit var firebaseAuth: FirebaseAuth
 
@@ -22,31 +23,26 @@ class SignUpFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        // 初始化 ViewBinding
-        _binding = ActivitySignUpBinding.inflate(inflater, container, false)
+        _binding = FragmentSignUpBinding.inflate(inflater, container, false)
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        // 初始化 Firebase Auth
         firebaseAuth = FirebaseAuth.getInstance()
 
-        // 处理 WindowInsets 以设置边距
         ViewCompat.setOnApplyWindowInsetsListener(binding.root) { v, insets ->
             val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
         }
 
-        // 跳转到登录页面
         binding.textView.setOnClickListener {
-            val intent = Intent(requireContext(), SignInActivity::class.java)
+            val intent = Intent(requireContext(), FragmentSignUpBinding::class.java)
             startActivity(intent)
         }
 
-        // 处理注册逻辑
         binding.button.setOnClickListener {
             val email = binding.emailEt.text.toString()
             val pass = binding.passET.text.toString()
@@ -80,6 +76,6 @@ class SignUpFragment : Fragment() {
 
     override fun onDestroyView() {
         super.onDestroyView()
-        _binding = null // 防止内存泄漏
+        _binding = null
     }
 }
