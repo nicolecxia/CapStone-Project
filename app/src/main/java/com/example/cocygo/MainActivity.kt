@@ -1,56 +1,57 @@
 package com.example.cocygo
 
 import android.annotation.SuppressLint
-import android.content.Intent
 import android.os.Bundle
-import android.widget.TextView
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Handler
 import android.os.Looper
-import android.util.Log
+import android.view.MenuItem
 import android.view.View
-import android.view.animation.AnimationUtils
-import android.widget.ImageView
-import androidx.lifecycle.MutableLiveData
-import com.example.cocygo.homeFragment.adapter.Service
+import androidx.appcompat.app.AppCompatActivity
+import androidx.fragment.app.Fragment
+import com.example.cocygo.databinding.ActivityMainBinding
+import com.example.cocygo.homeFragment.HomeFragment
 import com.example.cocygo.intro.SlidePageMenuFragment
-import com.google.firebase.Firebase
-import com.google.firebase.firestore.firestore
+import com.example.cocygo.user.UserProfileFragment
 
 class MainActivity : AppCompatActivity() {
 
+    private lateinit var binding: ActivityMainBinding
+
     @SuppressLint("ResourceType")
     override fun onCreate(savedInstanceState: Bundle?) {
-        //Show the Hi data name
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
-//        val fadeInAnimation = AnimationUtils.loadAnimation(this, R.animator.fade_in)
-//
-//        // Show the Hi data name
-        val introTV = findViewById<TextView>(R.id.text_welcome)
-        val introIV = findViewById<ImageView>(R.id.image_welcome)
-//      //  name.text = "Hi $dataName,"
-//        introTV.startAnimation(fadeInAnimation)
-        // Delay for 5 seconds before navigating to SlidePageMenu
-//        Handler(Looper.getMainLooper()).postDelayed({
-//            val intent = Intent(this, SlidePageMenu::class.java)
-//            startActivity(intent)
-//            finish()
-//        }, 5000) // 5000 milliseconds = 5 seconds
-        Handler(Looper.getMainLooper()).postDelayed({
-            supportFragmentManager.beginTransaction()
-                .replace(
-                    R.id.fragment_container,
-                    SlidePageMenuFragment()
-                ) // Use the correct ID of your fragment container
-                .addToBackStack(null) // Optional: Add to back stack if you want to navigate back
-                .commit()
-        }, 5000) // 5000 milliseconds = 5 seconds
+        binding = ActivityMainBinding.inflate(layoutInflater)
+        setContentView(binding.root)
 
+        // Set up bottom navigation
+        binding.bottomNavigation.setOnItemSelectedListener { item ->
+            handleNavigation(item)
+            true
+        }
+        binding.bottomNavigation.itemIconTintList = null
+
+        // Show the welcome message for 5 seconds
         Handler(Looper.getMainLooper()).postDelayed({
-            introTV.visibility = View.GONE
-            introIV.visibility = View.GONE
+            loadFragment(SlidePageMenuFragment())
+            binding.textWelcome.visibility = View.GONE
+            binding.imageWelcome.visibility = View.GONE
         }, 5000) // 5000 milliseconds = 5 seconds
     }
 
+    private fun handleNavigation(item: MenuItem) {
+        when (item.itemId) {
+            R.id.nav_home -> {
+                loadFragment(HomeFragment())
+            }
+            R.id.nav_user -> {
+                loadFragment(UserProfileFragment())
+            }
+        }
+    }
+
+    private fun loadFragment(fragment: Fragment) {
+        val transaction = supportFragmentManager.beginTransaction()
+        transaction.replace(R.id.fragment_container, fragment) // Adjust to your container ID
+        transaction.commit()
+    }
 }

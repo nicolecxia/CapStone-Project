@@ -1,0 +1,85 @@
+Index: app/src/main/java/com/example/cocygo/intro/SlidePageMenu.kt
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package com.example.cocygo.intro\r\n\r\nimport android.content.Intent\r\nimport androidx.appcompat.app.AppCompatActivity\r\nimport android.os.Bundle\r\nimport android.view.View\r\nimport android.widget.Button\r\nimport android.widget.Toast\r\nimport androidx.viewpager2.widget.ViewPager2\r\nimport com.example.cocygo.MainActivity\r\nimport com.example.cocygo.R\r\nimport com.example.slidepage.ViewPageAdapter\r\nimport com.tbuonomo.viewpagerdotsindicator.DotsIndicator\r\n\r\nclass SlidePageMenu : AppCompatActivity() {\r\n    private var name = \"\"\r\n    private val vp by lazy {\r\n        findViewById<ViewPager2>(R.id.slideVP)\r\n    }\r\n    private lateinit var switchButton: ViewPager2.OnPageChangeCallback\r\n    override fun onCreate(savedInstanceState: Bundle?) {\r\n        //for Access Adapter\r\n        super.onCreate(savedInstanceState)\r\n        setContentView(R.layout.activity_slide)\r\n        val dotsSlide = findViewById<DotsIndicator>(R.id.dots_indicator)\r\n        val pagerAdapter = ViewPageAdapter(this) { name = it.toString() }\r\n        vp.adapter = pagerAdapter\r\n        dotsSlide.setViewPager2(vp)\r\n        //Show button finish in Slide 4 and button next in another slide\r\n        val btnFinish = findViewById<Button>(R.id.button_finish)\r\n        val btnNext = findViewById<Button>(R.id.button_next)\r\n        switchButton = object : ViewPager2.OnPageChangeCallback() {\r\n            override fun onPageSelected(position: Int) {\r\n                if (position == 3) {\r\n                    btnFinish.visibility = View.VISIBLE\r\n                    btnNext.visibility = View.GONE\r\n                } else {\r\n                    btnNext.visibility = View.VISIBLE\r\n                    btnFinish.visibility = View.GONE\r\n                }\r\n            }\r\n        }\r\n        vp.registerOnPageChangeCallback(switchButton)\r\n        //Button next used to swipe the slide until slide 4\r\n        btnNext.setOnClickListener {\r\n            if (vp.currentItem < 3) {\r\n                vp.currentItem = vp.currentItem.plus(1)\r\n            }\r\n        }\r\n        //Button finish used to finish all\r\n        btnFinish.setOnClickListener {\r\n            when {\r\n                name != \"\" -> {\r\n                    Intent(this, MainActivity::class.java)\r\n                            .apply {\r\n                                putExtra(\"dataName\", name)\r\n                                startActivity(this)\r\n                            }\r\n                }\r\n                else -> {\r\n                    Toast.makeText(\r\n                            this,\r\n                            \"transferring to Login/Register Page\",\r\n                            Toast.LENGTH_SHORT\r\n                    ).show()\r\n                }\r\n            }\r\n        }\r\n    }\r\n    //Used to destroy onPageChangeCallback. If it don't use it,it make memory leak\r\n    override fun onDestroy() {\r\n        super.onDestroy()\r\n        vp.registerOnPageChangeCallback(switchButton)\r\n    }\r\n}
+===================================================================
+diff --git a/app/src/main/java/com/example/cocygo/intro/SlidePageMenu.kt b/app/src/main/java/com/example/cocygo/intro/SlidePageMenu.kt
+--- a/app/src/main/java/com/example/cocygo/intro/SlidePageMenu.kt	
++++ b/app/src/main/java/com/example/cocygo/intro/SlidePageMenu.kt	
+@@ -1,75 +1,0 @@
+-package com.example.cocygo.intro
+-
+-import android.content.Intent
+-import androidx.appcompat.app.AppCompatActivity
+-import android.os.Bundle
+-import android.view.View
+-import android.widget.Button
+-import android.widget.Toast
+-import androidx.viewpager2.widget.ViewPager2
+-import com.example.cocygo.MainActivity
+-import com.example.cocygo.R
+-import com.example.slidepage.ViewPageAdapter
+-import com.tbuonomo.viewpagerdotsindicator.DotsIndicator
+-
+-class SlidePageMenu : AppCompatActivity() {
+-    private var name = ""
+-    private val vp by lazy {
+-        findViewById<ViewPager2>(R.id.slideVP)
+-    }
+-    private lateinit var switchButton: ViewPager2.OnPageChangeCallback
+-    override fun onCreate(savedInstanceState: Bundle?) {
+-        //for Access Adapter
+-        super.onCreate(savedInstanceState)
+-        setContentView(R.layout.activity_slide)
+-        val dotsSlide = findViewById<DotsIndicator>(R.id.dots_indicator)
+-        val pagerAdapter = ViewPageAdapter(this) { name = it.toString() }
+-        vp.adapter = pagerAdapter
+-        dotsSlide.setViewPager2(vp)
+-        //Show button finish in Slide 4 and button next in another slide
+-        val btnFinish = findViewById<Button>(R.id.button_finish)
+-        val btnNext = findViewById<Button>(R.id.button_next)
+-        switchButton = object : ViewPager2.OnPageChangeCallback() {
+-            override fun onPageSelected(position: Int) {
+-                if (position == 3) {
+-                    btnFinish.visibility = View.VISIBLE
+-                    btnNext.visibility = View.GONE
+-                } else {
+-                    btnNext.visibility = View.VISIBLE
+-                    btnFinish.visibility = View.GONE
+-                }
+-            }
+-        }
+-        vp.registerOnPageChangeCallback(switchButton)
+-        //Button next used to swipe the slide until slide 4
+-        btnNext.setOnClickListener {
+-            if (vp.currentItem < 3) {
+-                vp.currentItem = vp.currentItem.plus(1)
+-            }
+-        }
+-        //Button finish used to finish all
+-        btnFinish.setOnClickListener {
+-            when {
+-                name != "" -> {
+-                    Intent(this, MainActivity::class.java)
+-                            .apply {
+-                                putExtra("dataName", name)
+-                                startActivity(this)
+-                            }
+-                }
+-                else -> {
+-                    Toast.makeText(
+-                            this,
+-                            "transferring to Login/Register Page",
+-                            Toast.LENGTH_SHORT
+-                    ).show()
+-                }
+-            }
+-        }
+-    }
+-    //Used to destroy onPageChangeCallback. If it don't use it,it make memory leak
+-    override fun onDestroy() {
+-        super.onDestroy()
+-        vp.registerOnPageChangeCallback(switchButton)
+-    }
+-}
+\ No newline at end of file
