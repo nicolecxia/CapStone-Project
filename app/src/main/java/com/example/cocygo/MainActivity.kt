@@ -6,16 +6,19 @@ import android.os.Handler
 import android.os.Looper
 import android.view.MenuItem
 import android.view.View
+import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import com.example.cocygo.databinding.ActivityMainBinding
 import com.example.cocygo.homeFragment.HomeFragment
 import com.example.cocygo.intro.SlidePageMenuFragment
+import com.example.cocygo.signIn.SignInViewModel
 import com.example.cocygo.user.UserProfileFragment
 
 class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding
+    private val signInViewModel: SignInViewModel by viewModels()
 
     @SuppressLint("ResourceType")
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -23,12 +26,15 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        // Set up bottom navigation
-        binding.bottomNavigation.setOnItemSelectedListener { item ->
-            handleNavigation(item)
-            true
+        // Observe the signInFlag LiveData
+        signInViewModel.signInFlag.observe(this) { success ->
+            if (success) {
+                setupBottomNavigation()
+                loadFragment(HomeFragment()) // Load the home fragment after sign-in
+            } else {
+                // Handle failed sign-in if needed
+            }
         }
-        binding.bottomNavigation.itemIconTintList = null
 
         // Show the welcome message for 5 seconds
         Handler(Looper.getMainLooper()).postDelayed({
@@ -36,6 +42,15 @@ class MainActivity : AppCompatActivity() {
             binding.textWelcome.visibility = View.GONE
             binding.imageWelcome.visibility = View.GONE
         }, 5000) // 5000 milliseconds = 5 seconds
+    }
+
+    private fun setupBottomNavigation() {
+        binding.bottomNavigation.visibility = View.VISIBLE // Show the bottom navigation
+        binding.bottomNavigation.setOnItemSelectedListener { item ->
+            handleNavigation(item)
+            true
+        }
+        binding.bottomNavigation.itemIconTintList = null
     }
 
     private fun handleNavigation(item: MenuItem) {
