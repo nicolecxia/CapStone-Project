@@ -1,3 +1,5 @@
+import java.util.Properties
+
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.jetbrains.kotlin.android)
@@ -25,9 +27,21 @@ android {
         versionCode = 1
         versionName = "1.0"
 
+        val localProperties = rootProject.file("local.properties")
+        val properties = Properties()
+
+        if (localProperties.exists()) {
+            localProperties.inputStream().use { properties.load(it) }
+        }
+        val apiKey: String = properties.getProperty("apiKey") ?: ""
+
+        buildConfigField("String", "MAPS_API_KEY", "\"$apiKey\"")
+        manifestPlaceholders["apiKey"] = apiKey
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
-
+    buildFeatures {
+        buildConfig = true
+    }
     buildTypes {
         release {
             isMinifyEnabled = false
@@ -74,5 +88,8 @@ dependencies {
     // Views/Fragments integration
     implementation("androidx.navigation:navigation-fragment:$nav_version")
     implementation("androidx.navigation:navigation-ui:$nav_version")
+
+    //location
+    implementation ("com.google.android.gms:play-services-maps:17.0.0")
 
 }

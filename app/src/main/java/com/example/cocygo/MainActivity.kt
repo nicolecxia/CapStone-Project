@@ -9,11 +9,11 @@ import android.view.View
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
+import com.example.cocygo.booking.calender.view.CalenderFragment
 import com.example.cocygo.databinding.ActivityMainBinding
 import com.example.cocygo.homeFragment.HomeFragment
 import com.example.cocygo.intro.SlidePageMenuFragment
 import com.example.cocygo.signIn.SignInViewModel
-import com.example.cocygo.user.UserProfileFragment
 
 class MainActivity : AppCompatActivity() {
 
@@ -58,8 +58,8 @@ class MainActivity : AppCompatActivity() {
             R.id.nav_home -> {
                 loadFragment(HomeFragment())
             }
-            R.id.nav_user -> {
-                loadFragment(UserProfileFragment())
+            R.id.nav_appointments -> {
+                loadFragment(CalenderFragment())
             }
         }
     }
