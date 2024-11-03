@@ -19,9 +19,6 @@
             android:name="com.google.android.geo.API_KEY"
             android:value="${apiKey}" />
 
-<!--        <activity-->
-<!--            android:name=".booking.location.LocationFragment"-->
-<!--            android:exported="false" />-->
         <activity
             android:name=".MainActivity"
             android:exported="true">

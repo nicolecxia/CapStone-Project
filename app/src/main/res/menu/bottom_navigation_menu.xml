@@ -9,5 +9,10 @@
         android:icon="@drawable/bookingicon"
         android:title="" />
 
+    <item
+        android:id="@+id/nav_Loc"
+        android:icon="@drawable/location"
+        android:title="" />
+
 
 </menu>

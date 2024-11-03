@@ -5,11 +5,11 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.lifecycle.ViewModelProvider
 import com.example.cocygo.R
 import com.example.cocygo.databinding.FragmentSignInBinding
 import com.example.cocygo.homeFragment.HomeFragment
+import com.example.cocygo.signUp.SignUpFragment
 
 class SignInFragment : Fragment() {
     private var binding: FragmentSignInBinding? = null
@@ -38,6 +38,14 @@ class SignInFragment : Fragment() {
             val email = binding!!.emailEt.text.toString()
             val pass = binding!!.passET.text.toString()
             signInViewModel.signIn(requireActivity(), email, pass)
+        }
+        binding?.tvSignUp?.setOnClickListener {
+            val signUpFragment = SignUpFragment()
+            //  addToBackStack(null) allows the user to press the back button to return to FirstFragment.
+            parentFragmentManager.beginTransaction()
+                .replace(R.id.fragment_container, signUpFragment)
+                .addToBackStack(null)
+                .commit()
         }
 
         // Observe the signInFlag LiveData

@@ -48,7 +48,7 @@ class SelectedDateFragment : Fragment() {
 
 //         Observe the selected date from the ViewModel
         datePickerViewModel.selectedDataLiveData.observe(viewLifecycleOwner) { selectedDate ->
-            binding.retrieveDate.text = "Booked At\n $selectedDate "
+            binding.retrieveDate.text = "Upcomming\n $selectedDate "
         }
         datePickerViewModel.selectedTimeLiveData.observe(viewLifecycleOwner) { selectedTime ->
             binding.retrieveDate.append("|  $selectedTime") // Append time instead of replacing
