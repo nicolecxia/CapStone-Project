@@ -10,6 +10,7 @@ import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import com.example.cocygo.booking.calender.view.CalenderFragment
+import com.example.cocygo.booking.calender.view.SelectedDateFragment
 import com.example.cocygo.databinding.ActivityMainBinding
 import com.example.cocygo.homeFragment.HomeFragment
 import com.example.cocygo.intro.SlidePageMenuFragment
@@ -59,7 +60,7 @@ class MainActivity : AppCompatActivity() {
                 loadFragment(HomeFragment())
             }
             R.id.nav_appointments -> {
-                loadFragment(CalenderFragment())
+                loadFragment(SelectedDateFragment())
             }
         }
     }

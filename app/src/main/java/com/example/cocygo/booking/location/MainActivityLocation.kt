@@ -45,19 +45,10 @@ class MainActivityLocation : AppCompatActivity(), OnMapReadyCallback,
         }
 
 
-        // Set the button click listener to show the fragment
-//        binding.buttonShowFragment.setOnClickListener {
-//            val homeFragment = HomeFragment() // Create an instance of your fragment
-//            supportFragmentManager.beginTransaction()
-//                .replace(R.id.fragment_container, homeFragment) // R.id.fragment_container is the ID of the container
-//                .addToBackStack(null) // Optional: adds the transaction to the back stack
-//                .commit()
-//        }
         FirebaseApp.initializeApp(this)
 
 
-//}
-        // Get the SupportMapFragment and request notification when the map is ready to be used.
+
         val mapFragment = supportFragmentManager
             .findFragmentById(R.id.map_fragment) as SupportMapFragment
         mapFragment.getMapAsync(this)

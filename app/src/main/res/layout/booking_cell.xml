@@ -4,8 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@color/material_dynamic_neutral90"
-    android:backgroundTint="@color/material_dynamic_neutral95">
+   >
 
     <TextView
         android:id="@+id/textView4"
@@ -13,7 +12,6 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
         android:layout_marginBottom="6dp"
-        android:fontFamily="@font/font_ubuntu_bold"
         android:text="Booked On"
         android:textSize="16sp"
         app:layout_constraintBottom_toTopOf="@+id/textViewDate"
@@ -30,7 +28,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/img" />
+     />
 
     <TextView
         android:id="@+id/textViewDate"

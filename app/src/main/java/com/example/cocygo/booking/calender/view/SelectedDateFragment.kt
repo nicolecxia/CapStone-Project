@@ -44,14 +44,14 @@ class SelectedDateFragment : Fragment() {
                 SpaceItemDecoration(spaceInPixels)
             )
         }
-        binding.retrievedate.setTextColor(Color.parseColor("#51004F"))
+        binding.retrieveDate.setTextColor(Color.parseColor("#51004F"))
 
 //         Observe the selected date from the ViewModel
         datePickerViewModel.selectedDataLiveData.observe(viewLifecycleOwner) { selectedDate ->
-            binding.retrievedate.text = "Booked At\n $selectedDate "
+            binding.retrieveDate.text = "Booked At\n $selectedDate "
         }
         datePickerViewModel.selectedTimeLiveData.observe(viewLifecycleOwner) { selectedTime ->
-            binding.retrievedate.append("|  $selectedTime") // Append time instead of replacing
+            binding.retrieveDate.append("|  $selectedTime") // Append time instead of replacing
         }
         datePickerViewModel.datesLiveData.observe(viewLifecycleOwner) { dates ->
             adapter.updateData(dates)
