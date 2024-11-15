@@ -35,6 +35,7 @@ class ServiceDetailFragment(image: String?, name: String?, tittle: String?) : Di
     private lateinit var datePickerViewModel: DatePickerViewModel
     private var selectedDate: String? = null
     private var selectedTime: String? = null
+    private var selectedCartId: String? = null
 
     //ViewModel
     private lateinit var servicesListViewModel: ServicesListViewModel
