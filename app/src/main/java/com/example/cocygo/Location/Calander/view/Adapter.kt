@@ -8,7 +8,10 @@ import com.example.cocygo.R
 import org.intellij.lang.annotations.JdkConstants.CalendarMonth
 import java.util.Calendar
 
-class Adapter(private var data: List<CalenderModel>) : RecyclerView.Adapter<ViewHolder>() {
+class Adapter(
+    private var data: List<CalenderModel>,
+    private val onItemClick: (String) -> Unit // Callback for item clicks
+) : RecyclerView.Adapter<ViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.booking_cell, parent, false)
@@ -23,6 +26,12 @@ class Adapter(private var data: List<CalenderModel>) : RecyclerView.Adapter<View
         val calendarItem = data[position]
         holder.titleDate.text = calendarItem.date
         holder.titleTime.text = calendarItem.time
+        holder.titleService.text = calendarItem.serviceName
+
+        // Set click listener
+        holder.view.setOnClickListener {
+            onItemClick(calendarItem.cartId) // Pass the cartId when clicked
+        }
     }
 
     // Method to update the data
