@@ -9,8 +9,9 @@ import android.widget.Toast
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.fragment.app.Fragment
-//import com.example.cocygo.databinding.FragmentSignUpBinding
-import com.qw1180046.sprint2.databinding.FragmentSignUpBinding
+import com.example.cocygo.MainActivity
+import com.example.cocygo.databinding.FragmentSignUpBinding
+//import com.qw1180046.sprint2.databinding.FragmentSignUpBinding
 import com.google.firebase.auth.FirebaseAuth
 
 class SignUpFragment : Fragment() {

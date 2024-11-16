@@ -6,7 +6,6 @@ import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.os.Bundle
 import android.util.Base64
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -16,12 +15,11 @@ import android.widget.Toast
 import androidx.fragment.app.DialogFragment
 import androidx.lifecycle.ViewModelProvider
 import com.example.cocygo.R
-import com.example.cocygo.booking.calender.view.CalenderFragment
 import com.example.cocygo.booking.calender.view.SelectedDateFragment
 import com.example.cocygo.booking.calender.viewModel.DatePickerViewModel
-import com.example.cocygo.booking.location.LocationFragment
 import com.example.cocygo.databinding.FragmentServiceDetailBinding
 import com.example.cocygo.homeFragment.adapter.ServicesListViewModel
+import com.example.cocygo.notificationComponent.NotificationComponent
 import java.util.Calendar
 
 
@@ -36,12 +34,16 @@ class ServiceDetailFragment(image: String?, name: String?, tittle: String?) : Di
     private var selectedDate: String? = null
     private var selectedTime: String? = null
     private var selectedCartId: String? = null
+    private lateinit var notificationComponent: NotificationComponent
+
 
     //ViewModel
     private lateinit var servicesListViewModel: ServicesListViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        //init notification component
+        notificationComponent = NotificationComponent(requireContext())
 
     }
 
@@ -140,6 +142,12 @@ class ServiceDetailFragment(image: String?, name: String?, tittle: String?) : Di
         datePickerViewModel.saveSelectedDate(selectedDate ?: "", selectedTime ?: "")
 
         Toast.makeText(requireContext(), "Selected Date and Time: $dateTime", Toast.LENGTH_SHORT).show()
+
+            notificationComponent.showNotification(
+                title = "Booking Success",
+                message = "You have booked one service on $selectedDate, $selectedTime",
+                notificationId = 1
+            )
 
         // Navigate to SelectedDateFragment
         navigateToSelectedDateFragment()
