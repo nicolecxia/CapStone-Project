@@ -1,0 +1,17 @@
+<resources>
+    <string name="app_name">CocyGo</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="but_next">Next</string>
+    <string name="AppName">CozyGo</string>
+    <string name="but_finish">Finish</string>
+    <string name="text_intro1">Say goodbye to long wait times and hello to effortless hair appointments with CozyGo app!</string>
+    <string name="text_intro2">Discover your dream hairstyle and book your ideal appointment instantly with CozyGo!.</string>
+    <string name="text_intro3">Transform your hair care routine with CozyGo s seamless booking experience.</string>
+    <string name="text_intro4">Lets get started!</string>
+    <string name="text_hi">Hi</string>
+    <string name="text_welcome">Welcome to CozyGO App, your personal assistant for finding the perfect haircut!!</string>
+    <string name="choose_enemy">choose_enemy</string>
+    <string name="close_button">Close button</string>
+
+</resources>
