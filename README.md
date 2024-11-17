@@ -50,3 +50,9 @@ Changqing Xia
 2. Users can register.
 3. Users can enable dark mode.
 4. Users can add data to the cart.
+
+Arezou Ghorbani
+1. Users can delete existing entries.
+2. Users can call the managers.
+3. Users have a splash screen.
+4. Users have an intro.

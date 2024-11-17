@@ -11,7 +11,6 @@
     <!-- TODO: Update blank fragment layout -->
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/emailLayout"
-        style="@style/LoginTextInputOuterFieldStyle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="16dp"
@@ -26,7 +25,6 @@
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/emailEt"
-            style="@style/LoginTextInputInnerFieldStyle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="Type your Email"
@@ -35,7 +33,6 @@
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/passwordLayout"
-        style="@style/LoginTextInputOuterFieldStyle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="16dp"
@@ -50,7 +47,6 @@
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/passET"
-            style="@style/LoginTextInputInnerFieldStyle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="Type Your Password"
@@ -58,7 +54,7 @@
     </com.google.android.material.textfield.TextInputLayout>
 
     <androidx.appcompat.widget.AppCompatButton
-        android:id="@+id/button"
+        android:id="@+id/signInBtn"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="16dp"
@@ -73,7 +69,7 @@
         app:layout_constraintTop_toBottomOf="@+id/passwordLayout" />
 
     <TextView
-        android:id="@+id/textView"
+        android:id="@+id/tv_SignUp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textColor="@color/black"
@@ -82,7 +78,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/button" />
+        app:layout_constraintTop_toBottomOf="@+id/signInBtn" />
 
     <TextView
         android:id="@+id/errMsg"
@@ -93,5 +89,6 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/passwordLayout" />
+<!--    style="@style/LoginTextInputInnerFieldStyle"-->
 
 </androidx.constraintlayout.widget.ConstraintLayout>

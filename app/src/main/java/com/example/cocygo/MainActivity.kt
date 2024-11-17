@@ -1,93 +1,76 @@
 package com.example.cocygo
 
-import android.content.Context
+import android.annotation.SuppressLint
 import android.os.Bundle
-import androidx.activity.enableEdgeToEdge
+import android.os.Handler
+import android.os.Looper
+import android.view.MenuItem
+import android.view.View
+import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.ViewCompat
-import androidx.core.view.WindowInsetsCompat
+import androidx.fragment.app.Fragment
+import com.example.cocygo.booking.calender.view.SelectedDateFragment
+import com.example.cocygo.booking.location.LocationFragment
 import com.example.cocygo.databinding.ActivityMainBinding
-import com.google.firebase.auth.FirebaseAuth
-import android.content.Intent
-import androidx.lifecycle.ViewModelProvider
-import com.example.cocygo.service.list.ServicesListFragment
-import com.example.cocygo.signIn.SignInFragment
+import com.example.cocygo.homeFragment.HomeFragment
+import com.example.cocygo.intro.SlidePageMenuFragment
 import com.example.cocygo.signIn.SignInViewModel
 
 class MainActivity : AppCompatActivity() {
+
     private lateinit var binding: ActivityMainBinding
-    private lateinit var firebaseAuth: FirebaseAuth
+    private val signInViewModel: SignInViewModel by viewModels()
 
-//    ViewModel
-    private lateinit var signInViewModel: SignInViewModel
-
+    @SuppressLint("ResourceType")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-//        enableEdgeToEdge()
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
-            val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
-            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
-            insets
-        }
-
-        firebaseAuth = FirebaseAuth.getInstance()
-        signInViewModel = ViewModelProvider(this)[SignInViewModel::class.java]
-
-
-        listenSignInLiveData()
-
-    }
-
-    override fun onStart() {
-        super.onStart()
-
-        if (firebaseAuth.currentUser != null) {
-            jumpToServicesFragment()
-        } else {
-            jumpToSignInFragment()
-        }
-    }
-
-    private fun jumpToServicesFragment() {
-        val currentFragment = supportFragmentManager.findFragmentById(R.id.fragmentContainer)
-        if (currentFragment !is ServicesListFragment) {
-            val trans = supportFragmentManager.beginTransaction()
-                .add(R.id.fragmentContainer, ServicesListFragment())
-            trans.addToBackStack(null)
-            trans.commit()
-        }
-    }
-
-    private fun jumpToSignInFragment() {
-        val currentFragment = supportFragmentManager.findFragmentById(R.id.fragmentContainer)
-        if (currentFragment !is SignInFragment) {
-            val trans = supportFragmentManager.beginTransaction()
-                .add(R.id.fragmentContainer, SignInFragment())
-            trans.addToBackStack(null)
-            trans.commit()
-        }
-    }
-
-    private fun listenSignInLiveData() {
-        signInViewModel.userEmail.observe(this) { userEmail ->
-            val sharedata = getSharedPreferences(
-                "AccountInfo",
-                Context.MODE_PRIVATE
-            )  //create shareddate named ‘counterdata’
-            val editor = sharedata.edit()
-            editor.putString("email", userEmail)   //put date into shareddate.edit, key-vakue pairs
-            editor.commit()
-        }
-
-        signInViewModel.signInFlag.observe(this) { flag ->
-            if (flag) {
-                jumpToServicesFragment()
+        // Observe the signInFlag LiveData
+        signInViewModel.signInFlag.observe(this) { success ->
+            if (success) {
+                setupBottomNavigation()
+                loadFragment(HomeFragment()) // Load the home fragment after sign-in
             } else {
-                jumpToSignInFragment()
+                // Handle failed sign-in if needed
             }
         }
+
+        // Show the welcome message for 5 seconds
+        Handler(Looper.getMainLooper()).postDelayed({
+            loadFragment(SlidePageMenuFragment())
+            binding.textWelcome.visibility = View.GONE
+            binding.imageWelcome.visibility = View.GONE
+        }, 5000) // 5000 milliseconds = 5 seconds
+    }
+
+    private fun setupBottomNavigation() {
+        binding.bottomNavigation.visibility = View.VISIBLE // Show the bottom navigation
+        binding.bottomNavigation.setOnItemSelectedListener { item ->
+            handleNavigation(item)
+            true
+        }
+        binding.bottomNavigation.itemIconTintList = null
+    }
+
+    private fun handleNavigation(item: MenuItem) {
+        when (item.itemId) {
+            R.id.nav_home -> {
+                loadFragment(HomeFragment())
+            }
+            R.id.nav_appointments -> {
+                loadFragment(SelectedDateFragment())
+            }
+            R.id.nav_Loc -> {
+                loadFragment(LocationFragment())
+            }
+        }
+    }
+
+    private fun loadFragment(fragment: Fragment) {
+        val transaction = supportFragmentManager.beginTransaction()
+        transaction.replace(R.id.fragment_container, fragment) // Adjust to your container ID
+        transaction.commit()
     }
 }
