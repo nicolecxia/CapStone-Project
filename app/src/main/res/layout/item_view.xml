@@ -45,5 +45,11 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/item_title" />  <!-- Set to the Title TextView -->
-
+<ImageButton
+    android:id="@+id/btnCall"
+    android:layout_width="50dp"
+    android:layout_height="50dp"
+    android:background="@drawable/call"
+    app:layout_constraintTop_toBottomOf="@+id/item_description"
+    app:layout_constraintRight_toRightOf="parent"/>
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -30,16 +30,17 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
 
         // Observe LiveData from ViewModel
         viewModel.items.observe(viewLifecycleOwner) { items ->
-            adapter = ItemAdapter(items) { item ->
+            adapter = ItemAdapter(items, { item ->
                 // Handle item click if needed
-               // Toast.makeText(requireContext(), "Clicked: ${item.name}", Toast.LENGTH_SHORT).show()
-                val serviceDetailFragment = ServiceDetailFragment(item.image,item.name,item.tittle)
-                //  addToBackStack(null) allows the user to press the back button to return to FirstFragment.
+                // Toast.makeText(requireContext(), "Clicked: ${item.name}", Toast.LENGTH_SHORT).show()
+                val serviceDetailFragment = ServiceDetailFragment(item.image, item.name, item.tittle)
+                // addToBackStack(null) allows the user to press the back button to return to FirstFragment.
                 parentFragmentManager.beginTransaction()
                     .replace(R.id.fragment_container, serviceDetailFragment)
                     .addToBackStack(null)
                     .commit()
-            }
+            }, requireContext()) // Pass the context here
+
             recyclerView.adapter = adapter
         }
     }
