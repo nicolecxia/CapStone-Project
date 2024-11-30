@@ -6,6 +6,11 @@ import android.os.Handler
 import android.os.Looper
 import android.view.MenuItem
 import android.view.View
+import android.view.animation.AlphaAnimation
+import android.view.animation.Animation
+import android.view.animation.Animation.AnimationListener
+import android.view.animation.TranslateAnimation
+import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
@@ -36,13 +41,62 @@ class MainActivity : AppCompatActivity() {
                 // Handle failed sign-in if needed
             }
         }
-
-        // Show the welcome message for 5 seconds
         Handler(Looper.getMainLooper()).postDelayed({
-            loadFragment(SlidePageMenuFragment())
-            binding.textWelcome.visibility = View.GONE
-            binding.imageWelcome.visibility = View.GONE
-        }, 5000) // 5000 milliseconds = 5 seconds
+            // Animation for imageWelcome (up to down)
+            val imageAnimation = TranslateAnimation(
+                0f,  // Start X position (no horizontal movement)
+                0f,  // End X position
+                -500f,  // Start Y position (above the screen)
+                0f   // End Y position (original position)
+            ).apply {
+                duration = 2000 // 2 seconds
+                fillAfter = true // Keep the view at the end position after animation
+            }
+            binding.imageWelcome.startAnimation(imageAnimation)
+
+            imageAnimation.setAnimationListener(object : Animation.AnimationListener {
+                override fun onAnimationStart(animation: Animation?) {
+                    Toast.makeText(this@MainActivity, "Image Animation Started", Toast.LENGTH_SHORT).show()
+                }
+
+                override fun onAnimationRepeat(animation: Animation?) {}
+
+                override fun onAnimationEnd(animation: Animation?) {
+                    // Animation for textWelcome (down to up)
+                    val textAnimation = TranslateAnimation(
+                        0f,  // Start X position (no horizontal movement)
+                        0f,  // End X position
+                        500f,  // Start Y position (below the screen)
+                        0f   // End Y position (original position)
+                    ).apply {
+                        duration = 2000 // 2 seconds
+                        fillAfter = true // Keep the view at the end position after animation
+                    }
+                    binding.textWelcome.startAnimation(textAnimation)
+
+                    textAnimation.setAnimationListener(object : Animation.AnimationListener {
+                        override fun onAnimationStart(animation: Animation?) {
+                            Toast.makeText(this@MainActivity, "Text Animation Started", Toast.LENGTH_SHORT).show()
+                        }
+
+                        override fun onAnimationRepeat(animation: Animation?) {}
+
+                        override fun onAnimationEnd(animation: Animation?) {
+                            // Set visibility to GONE after both animations are completed
+                            binding.textWelcome.visibility = View.GONE
+                            binding.textWelcome.clearAnimation()
+
+                            binding.imageWelcome.visibility = View.GONE
+                            binding.imageWelcome.clearAnimation()
+
+                            // Load the next fragment
+                            loadFragment(SlidePageMenuFragment())
+                        }
+                    })
+                }
+            })
+        }, 6000) // Delay for 5 seconds
+
     }
 
     private fun setupBottomNavigation() {
@@ -59,9 +113,11 @@ class MainActivity : AppCompatActivity() {
             R.id.nav_home -> {
                 loadFragment(HomeFragment())
             }
+
             R.id.nav_appointments -> {
                 loadFragment(SelectedDateFragment())
             }
+
             R.id.nav_Loc -> {
                 loadFragment(LocationFragment())
             }
