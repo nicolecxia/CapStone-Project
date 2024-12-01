@@ -13,6 +13,7 @@ import android.view.ViewGroup
 import android.widget.DatePicker
 import android.widget.TimePicker
 import android.widget.Toast
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.DialogFragment
 import androidx.lifecycle.ViewModelProvider
 import com.example.cocygo.R
@@ -24,11 +25,13 @@ import com.example.cocygo.databinding.FragmentServiceDetailBinding
 import com.example.cocygo.homeFragment.adapter.ItemViewModel
 import com.example.cocygo.homeFragment.adapter.ServicesListViewModel
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.firestore.core.ComponentProvider.Configuration
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import java.util.Calendar
+
 
 
 class ServiceDetailFragment(serviceID: String?,image: String?, name: String?, tittle: String?,likeStatus:Boolean?) : DialogFragment(), DatePickerDialog.OnDateSetListener,
@@ -68,6 +71,18 @@ class ServiceDetailFragment(serviceID: String?,image: String?, name: String?, ti
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+//       check display mode
+        val isDarkMode = (resources.configuration.uiMode
+                and android.content.res.Configuration.UI_MODE_NIGHT_MASK) == android.content.res.Configuration.UI_MODE_NIGHT_YES
+        if (isDarkMode) {
+            binding?.frameLayout?.setBackgroundColor(ContextCompat.getColor(requireActivity(), R.color.primary_dark_background))
+        } else {
+            binding?.frameLayout?.setBackgroundColor(ContextCompat.getColor(requireActivity(), R.color.primary_light))
+        }
+
+
+
 
         servicesListViewModel =
             ViewModelProvider(requireActivity())[ServicesListViewModel::class.java]

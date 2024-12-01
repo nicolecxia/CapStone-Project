@@ -28,7 +28,7 @@
         android:id="@+id/frameLayout"
         android:layout_width="match_parent"
         android:layout_height="150dp"
-        android:background="#F5DF4D"
+        android:background="@color/yellow"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/slideVP">

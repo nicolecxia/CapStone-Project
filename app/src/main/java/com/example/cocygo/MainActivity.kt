@@ -8,6 +8,7 @@ import android.view.MenuItem
 import android.view.View
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import com.example.cocygo.booking.calender.view.SelectedDateFragment
 import com.example.cocygo.booking.location.LocationFragment
@@ -26,6 +27,15 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+        //       check display mode
+        val isDarkMode = (resources.configuration.uiMode
+                and android.content.res.Configuration.UI_MODE_NIGHT_MASK) == android.content.res.Configuration.UI_MODE_NIGHT_YES
+        if (isDarkMode) {
+            binding.ConstraintLayout.setBackgroundColor(ContextCompat.getColor(this, R.color.primary_dark_background))
+        } else {
+            binding.ConstraintLayout.setBackgroundColor(ContextCompat.getColor(this, R.color.primary_light))
+        }
 
         // Observe the signInFlag LiveData
         signInViewModel.signInFlag.observe(this) { success ->
