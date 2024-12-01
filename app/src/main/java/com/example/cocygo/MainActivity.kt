@@ -31,6 +31,8 @@ class MainActivity : AppCompatActivity() {
     @SuppressLint("ResourceType")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        checkAndRequestPermission(Manifest.permission.WRITE_CALENDAR)
+        requestNotificationPermission()
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
         requestNotificationPermission()
@@ -96,14 +98,22 @@ class MainActivity : AppCompatActivity() {
             }
         }
     }
+    private fun checkAndRequestPermission(permission: String) {
+        if (ContextCompat.checkSelfPermission(this, permission) != PackageManager.PERMISSION_GRANTED) {
+            println("Permission $permission not granted. Requesting now...")
+            requestPermissionLauncher.launch(permission)
+        } else {
+            println("Permission $permission is already granted")
+        }
+    }
 
     private val requestPermissionLauncher = registerForActivityResult(
         ActivityResultContracts.RequestPermission()
     ) { isGranted: Boolean ->
         if (isGranted) {
-            println("Notification permission granted")
+            println("Permission granted")
         } else {
-            println("Notification permission denied")
+            println("Permission denied")
         }
     }
 }
