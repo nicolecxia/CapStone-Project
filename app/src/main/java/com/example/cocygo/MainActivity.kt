@@ -1,15 +1,11 @@
 package com.example.cocygo
 
 import android.annotation.SuppressLint
-import android.content.pm.PackageManager
-import android.os.Build
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
-import android.os.PersistableBundle
 import android.view.MenuItem
 import android.view.View
-import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
@@ -20,8 +16,6 @@ import com.example.cocygo.databinding.ActivityMainBinding
 import com.example.cocygo.homeFragment.HomeFragment
 import com.example.cocygo.intro.SlidePageMenuFragment
 import com.example.cocygo.signIn.SignInViewModel
-import android.Manifest
-
 
 class MainActivity : AppCompatActivity() {
 
@@ -33,7 +27,16 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        requestNotificationPermission()
+
+        //       check display mode
+        val isDarkMode = (resources.configuration.uiMode
+                and android.content.res.Configuration.UI_MODE_NIGHT_MASK) == android.content.res.Configuration.UI_MODE_NIGHT_YES
+        if (isDarkMode) {
+            binding.ConstraintLayout.setBackgroundColor(ContextCompat.getColor(this, R.color.primary_dark_background))
+        } else {
+            binding.ConstraintLayout.setBackgroundColor(ContextCompat.getColor(this, R.color.primary_light))
+        }
+
         // Observe the signInFlag LiveData
         signInViewModel.signInFlag.observe(this) { success ->
             if (success) {
@@ -79,31 +82,5 @@ class MainActivity : AppCompatActivity() {
         val transaction = supportFragmentManager.beginTransaction()
         transaction.replace(R.id.fragment_container, fragment) // Adjust to your container ID
         transaction.commit()
-    }
-    //Check the permission and get one
-    private fun requestNotificationPermission() {
-        // check if user need permission
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-            val permission = Manifest.permission.POST_NOTIFICATIONS
-
-            // Check if granted
-            if (ContextCompat.checkSelfPermission(this, permission) != PackageManager.PERMISSION_GRANTED) {
-                // no granted
-                requestPermissionLauncher.launch(permission)
-            } else {
-                // granted
-                println("Notification permission already granted")
-            }
-        }
-    }
-
-    private val requestPermissionLauncher = registerForActivityResult(
-        ActivityResultContracts.RequestPermission()
-    ) { isGranted: Boolean ->
-        if (isGranted) {
-            println("Notification permission granted")
-        } else {
-            println("Notification permission denied")
-        }
     }
 }

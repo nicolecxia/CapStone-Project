@@ -13,6 +13,7 @@ import android.view.ViewGroup
 import android.widget.DatePicker
 import android.widget.TimePicker
 import android.widget.Toast
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.DialogFragment
 import androidx.lifecycle.ViewModelProvider
 import com.example.cocygo.R
@@ -21,24 +22,35 @@ import com.example.cocygo.booking.calender.view.SelectedDateFragment
 import com.example.cocygo.booking.calender.viewModel.DatePickerViewModel
 import com.example.cocygo.booking.location.LocationFragment
 import com.example.cocygo.databinding.FragmentServiceDetailBinding
+import com.example.cocygo.homeFragment.adapter.ItemViewModel
 import com.example.cocygo.homeFragment.adapter.ServicesListViewModel
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.firestore.core.ComponentProvider.Configuration
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 import java.util.Calendar
 
 
-class ServiceDetailFragment(image: String?, name: String?, tittle: String?) : DialogFragment(), DatePickerDialog.OnDateSetListener,
+
+class ServiceDetailFragment(serviceID: String?,image: String?, name: String?, tittle: String?,likeStatus:Boolean?) : DialogFragment(), DatePickerDialog.OnDateSetListener,
     TimePickerDialog.OnTimeSetListener {
 
     private var binding: FragmentServiceDetailBinding? = null
     var name = name
     var image = image
     var tittle = tittle
+    var serviceID = serviceID
+    var likeStatus = likeStatus
     private lateinit var datePickerViewModel: DatePickerViewModel
     private var selectedDate: String? = null
     private var selectedTime: String? = null
-    private var selectedCartId: String? = null
 
+    private var firebaseAuth: FirebaseAuth =  FirebaseAuth.getInstance()
     //ViewModel
     private lateinit var servicesListViewModel: ServicesListViewModel
+    private lateinit var viewModel: ItemViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -60,13 +72,39 @@ class ServiceDetailFragment(image: String?, name: String?, tittle: String?) : Di
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+//       check display mode
+        val isDarkMode = (resources.configuration.uiMode
+                and android.content.res.Configuration.UI_MODE_NIGHT_MASK) == android.content.res.Configuration.UI_MODE_NIGHT_YES
+        if (isDarkMode) {
+            binding?.frameLayout?.setBackgroundColor(ContextCompat.getColor(requireActivity(), R.color.primary_dark_background))
+        } else {
+            binding?.frameLayout?.setBackgroundColor(ContextCompat.getColor(requireActivity(), R.color.primary_light))
+        }
+
+
+
+
         servicesListViewModel =
             ViewModelProvider(requireActivity())[ServicesListViewModel::class.java]
+
+        // Initialize ViewModel
+        viewModel = ViewModelProvider(requireActivity()).get(ItemViewModel::class.java)
+
         val bitmap = decodeBase64ToBitmap(image!!.trim())
 
         binding?.title?.text = tittle
         binding?.headerImage?.setImageBitmap(bitmap)
         binding?.body?.text = name
+
+//        show the like status
+        if (likeStatus == true){
+            binding?.heartImage?.visibility  = View.VISIBLE
+            binding?.btnLike?.text = "Unlike this Service"
+        }else{
+            binding?.heartImage?.visibility = View.GONE
+            binding?.btnLike?.text = "Like this Service"
+        }
+
         servicesListViewModel.serviceLists.observe(requireActivity()) { serviceLists ->
 //            binding?.title?.text = serviceLists[0].serviceName
 //            binding?.subhead?.text = serviceLists[0].stylist
@@ -84,6 +122,27 @@ class ServiceDetailFragment(image: String?, name: String?, tittle: String?) : Di
 //                .replace(R.id.fragment_container, locationFragment)
 //                .addToBackStack(null)
 //                .commit()
+        }
+
+        binding?.btnLike?.setOnClickListener{
+         //unlike this service
+            if (likeStatus == true){
+                servicesListViewModel.deleteFromCart(serviceID.toString(), firebaseAuth.currentUser?.uid.toString())
+                binding?.heartImage?.visibility  = View.GONE
+                binding?.btnLike?.text = "Like this Service"
+
+            }else{
+                servicesListViewModel.addToCart(serviceID.toString(), firebaseAuth.currentUser?.uid.toString())
+                binding?.heartImage?.visibility  = View.VISIBLE
+                binding?.btnLike?.text = "Unlike this Service"
+            }
+
+            CoroutineScope(Dispatchers.Main).launch {
+                delay(1000) // Suspend the coroutine for the delay duration
+                //reload the service list data
+                viewModel.getServiceList(firebaseAuth.currentUser?.uid.toString())
+            }
+
         }
         }
 

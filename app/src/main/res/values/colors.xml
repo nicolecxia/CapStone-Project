@@ -1,7 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="black">#FF000000</color>
-    <color name="yellow">#FFC107</color>
+    <color name="black">#0a0101</color>
+    <color name="yellow_dark">#FFC107</color>
+    <color name="yellow">#F5DF4D</color>
     <color name="white">#FFFFFFFF</color>
 
+    <color name="primary_light">#F5DF4D</color>
+    <color name="primary_dark">#b0aeae</color>
+    <color name="primary_dark_background">#292727</color>
 </resources>
