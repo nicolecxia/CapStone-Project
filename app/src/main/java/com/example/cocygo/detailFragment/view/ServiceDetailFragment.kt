@@ -2,9 +2,12 @@ package com.example.cocygo.detailFragment.view
 
 import android.app.DatePickerDialog
 import android.app.TimePickerDialog
+import android.content.ContentValues
+import android.content.Context
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.os.Bundle
+import android.provider.CalendarContract
 import android.util.Base64
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -23,6 +26,7 @@ import com.example.cocygo.booking.location.LocationFragment
 import com.example.cocygo.databinding.FragmentServiceDetailBinding
 import com.example.cocygo.homeFragment.adapter.ServicesListViewModel
 import java.util.Calendar
+import java.util.TimeZone
 
 
 class ServiceDetailFragment(image: String?, name: String?, tittle: String?) : DialogFragment(), DatePickerDialog.OnDateSetListener,
@@ -42,7 +46,7 @@ class ServiceDetailFragment(image: String?, name: String?, tittle: String?) : Di
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
+        getCalendars(requireContext())
     }
 
     override fun onCreateView(
@@ -136,9 +140,21 @@ class ServiceDetailFragment(image: String?, name: String?, tittle: String?) : Di
     // Callback when the user selects a time
     override fun onTimeSet(view: TimePicker?, hourOfDay: Int, minute: Int) {
         selectedTime = String.format("%02d:%02d", hourOfDay, minute)
-        val dateTime = "$selectedDate $selectedTime"
-        datePickerViewModel.saveSelectedDate(selectedDate ?: "", selectedTime ?: "")
+        val calendar = Calendar.getInstance()
+        calendar.set(Calendar.HOUR_OF_DAY, hourOfDay)
+        calendar.set(Calendar.MINUTE, minute)
+        val timeInMillis = calendar.timeInMillis
 
+        val dateTime = "$selectedDate $selectedTime"
+        Toast.makeText(requireContext(), "Selected Date and Time: $dateTime", Toast.LENGTH_SHORT).show()
+
+
+        addEventToCalendar(
+            requireContext(),
+            title ="You have booked a event" ,
+            description = binding?.title?.text.toString(),
+            timeInMillis = timeInMillis
+        )
         Toast.makeText(requireContext(), "Selected Date and Time: $dateTime", Toast.LENGTH_SHORT).show()
 
         // Navigate to SelectedDateFragment
@@ -152,4 +168,48 @@ class ServiceDetailFragment(image: String?, name: String?, tittle: String?) : Di
             .addToBackStack(null)
             .commit()
     }
+    private fun addEventToCalendar(context: Context, title: String, description: String, timeInMillis: Long) {
+        val calendarId = 3L
+
+        val values = ContentValues().apply {
+            put(CalendarContract.Events.DTSTART, timeInMillis)
+            put(CalendarContract.Events.DTEND, timeInMillis + 60 * 60 * 1000) // 默认事件持续时间为1小时
+            put(CalendarContract.Events.TITLE, title)
+            put(CalendarContract.Events.DESCRIPTION, description)
+            put(CalendarContract.Events.CALENDAR_ID, calendarId)
+            put(CalendarContract.Events.EVENT_TIMEZONE, TimeZone.getDefault().id)
+        }
+
+        try {
+            val uri = context.contentResolver.insert(CalendarContract.Events.CONTENT_URI, values)
+            if (uri != null) {
+                Toast.makeText(context, "Event added successfully!", Toast.LENGTH_SHORT).show()
+                println("Event URI: $uri")
+            } else {
+                Toast.makeText(context, "Failed to add event to calendar.", Toast.LENGTH_SHORT).show()
+            }
+        } catch (e: SecurityException) {
+            Toast.makeText(context, "Permission denied for adding to calendar.", Toast.LENGTH_LONG).show()
+            println("Error: ${e.message}")
+        }
+    }
+
+    private fun getCalendars(context: Context) {
+        val uri = CalendarContract.Calendars.CONTENT_URI
+        val projection = arrayOf(
+            CalendarContract.Calendars._ID,
+            CalendarContract.Calendars.NAME,
+            CalendarContract.Calendars.ACCOUNT_NAME
+        )
+        val cursor = context.contentResolver.query(uri, projection, null, null, null)
+        cursor?.use {
+            while (it.moveToNext()) {
+                val id = it.getLong(0)
+                val name = it.getString(1)
+                val accountName = it.getString(2)
+                println("Calendar ID: $id, Name: $name, Account: $accountName")
+            }
+        }
+    }
+
 }
