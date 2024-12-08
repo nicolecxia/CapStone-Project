@@ -1,5 +1,6 @@
 package com.example.cocygo.homeFragment
 
+import LanguageFragment
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.View
@@ -42,6 +43,11 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
             }, requireContext()) // Pass the context here
 
             recyclerView.adapter = adapter
+        }
+        if (childFragmentManager.findFragmentById(R.id.language_fragment_container) == null) {
+            childFragmentManager.beginTransaction()
+                .add(R.id.language_fragment_container, LanguageFragment())
+                .commit()
         }
     }
 }
