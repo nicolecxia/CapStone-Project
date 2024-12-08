@@ -14,7 +14,6 @@ buildscript {
         val nav_version = "2.8.3"
         classpath("androidx.navigation:navigation-safe-args-gradle-plugin:$nav_version")
     }
-
 }
 
 android {
@@ -61,9 +60,6 @@ android {
     }
     buildFeatures{
         viewBinding = true
-    }
-    buildFeatures {
-        dataBinding=true
     }
 }
 

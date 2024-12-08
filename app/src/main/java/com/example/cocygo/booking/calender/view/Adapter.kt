@@ -1,14 +1,15 @@
 package com.example.cocygo.booking.calender.view
 
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.appcompat.app.AlertDialog
 import androidx.recyclerview.widget.RecyclerView
 import com.example.cocygo.booking.calender.model.CalenderModel
 import com.example.cocygo.R
 
-class Adapter(private var data: List<CalenderModel>
-//              private val onItemClick: (String) -> Unit
-) : RecyclerView.Adapter<ViewHolder>() {
+class Adapter(private var data: List<CalenderModel>) : RecyclerView.Adapter<ViewHolder>() {
+    private var onDeleteClickListener: ((String) -> Unit)? = null
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.booking_cell, parent, false)
@@ -19,15 +20,37 @@ class Adapter(private var data: List<CalenderModel>
         return data.size
     }
 
+    fun setOnDeleteClickListener(listener: (String) -> Unit) {
+        onDeleteClickListener = listener
+    }
+
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val calendarItem = data[position]
         holder.titleDate.text = calendarItem.date
         holder.titleTime.text = calendarItem.time
-        holder.titleService.text = calendarItem.serviceName
-//
-//        holder.view.setOnClickListener {
-//            onItemClick(calendarItem.cartId) // Pass the cartId when clicked
-//        }
+
+        holder.btnCancel.setOnClickListener {
+            // Use holder.itemView.context to get the context for the dialog
+            showDeleteConfirmationDialog(holder.itemView.context, calendarItem.id)
+        }
+    }
+
+    // Use holder.itemView.context to get the correct context for the dialog
+    private fun showDeleteConfirmationDialog(context: android.content.Context, id: String) {
+        // Create an AlertDialog to confirm the deletion
+        val dialog = AlertDialog.Builder(context)
+            .setTitle(context.getString(R.string.delete_booking_title))
+            .setMessage(context.getString(R.string.delete_booking_message))
+            .setPositiveButton(context.getString(R.string.delete_booking_positive_button)) { _, _ ->
+                Log.d("Adapter", "Delete confirmed for id: $id")
+                onDeleteClickListener?.invoke(id)
+            }
+            .setNegativeButton(context.getString(R.string.delete_booking_negative_button)) { dialog, _ ->
+                dialog.dismiss()
+            }
+            .create()
+
+        dialog.show() // Show the dialog
     }
 
     // Method to update the data

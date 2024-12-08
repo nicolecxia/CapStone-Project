@@ -16,6 +16,7 @@ import android.view.ViewGroup
 import android.widget.DatePicker
 import android.widget.TimePicker
 import android.widget.Toast
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.DialogFragment
 import androidx.lifecycle.ViewModelProvider
 import com.example.cocygo.R
@@ -24,29 +25,48 @@ import com.example.cocygo.booking.calender.view.SelectedDateFragment
 import com.example.cocygo.booking.calender.viewModel.DatePickerViewModel
 import com.example.cocygo.booking.location.LocationFragment
 import com.example.cocygo.databinding.FragmentServiceDetailBinding
+import com.example.cocygo.homeFragment.adapter.ItemViewModel
 import com.example.cocygo.homeFragment.adapter.ServicesListViewModel
+import com.example.cocygo.notificationComponent.NotificationComponent
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.firestore.core.ComponentProvider.Configuration
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 import java.util.Calendar
 import java.util.TimeZone
 
 
-class ServiceDetailFragment(image: String?, name: String?, tittle: String?) : DialogFragment(), DatePickerDialog.OnDateSetListener,
+class ServiceDetailFragment(
+    serviceID: String?,
+    image: String?,
+    name: String?,
+    tittle: String?,
+    likeStatus: Boolean?
+) : DialogFragment(), DatePickerDialog.OnDateSetListener,
     TimePickerDialog.OnTimeSetListener {
+    lateinit var notificationComponent: NotificationComponent
 
     private var binding: FragmentServiceDetailBinding? = null
     var name = name
     var image = image
     var tittle = tittle
+    var serviceID = serviceID
+    var likeStatus = likeStatus
     private lateinit var datePickerViewModel: DatePickerViewModel
     private var selectedDate: String? = null
     private var selectedTime: String? = null
-    private var selectedCartId: String? = null
+
+    private var firebaseAuth: FirebaseAuth = FirebaseAuth.getInstance()
 
     //ViewModel
     private lateinit var servicesListViewModel: ServicesListViewModel
+    private lateinit var viewModel: ItemViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        getCalendars(requireContext())
+
     }
 
     override fun onCreateView(
@@ -64,13 +84,50 @@ class ServiceDetailFragment(image: String?, name: String?, tittle: String?) : Di
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+//       check display mode
+        val isDarkMode = (resources.configuration.uiMode
+                and android.content.res.Configuration.UI_MODE_NIGHT_MASK) == android.content.res.Configuration.UI_MODE_NIGHT_YES
+        if (isDarkMode) {
+            binding?.frameLayout?.setBackgroundColor(
+                ContextCompat.getColor(
+                    requireActivity(),
+                    R.color.primary_dark_background
+                )
+            )
+        } else {
+            binding?.frameLayout?.setBackgroundColor(
+                ContextCompat.getColor(
+                    requireActivity(),
+                    R.color.primary_light
+                )
+            )
+        }
+
+
+        notificationComponent = NotificationComponent(requireContext())
+
+
         servicesListViewModel =
             ViewModelProvider(requireActivity())[ServicesListViewModel::class.java]
+
+        // Initialize ViewModel
+        viewModel = ViewModelProvider(requireActivity()).get(ItemViewModel::class.java)
+
         val bitmap = decodeBase64ToBitmap(image!!.trim())
 
         binding?.title?.text = tittle
         binding?.headerImage?.setImageBitmap(bitmap)
         binding?.body?.text = name
+
+//        show the like status
+        if (likeStatus == true) {
+            binding?.heartImage?.visibility = View.VISIBLE
+            binding?.btnLike?.text = "Unlike this Service"
+        } else {
+            binding?.heartImage?.visibility = View.GONE
+            binding?.btnLike?.text = "Like this Service"
+        }
+
         servicesListViewModel.serviceLists.observe(requireActivity()) { serviceLists ->
 //            binding?.title?.text = serviceLists[0].serviceName
 //            binding?.subhead?.text = serviceLists[0].stylist
@@ -89,8 +146,34 @@ class ServiceDetailFragment(image: String?, name: String?, tittle: String?) : Di
 //                .addToBackStack(null)
 //                .commit()
         }
-        }
 
+        binding?.btnLike?.setOnClickListener {
+            //unlike this service
+            if (likeStatus == true) {
+                servicesListViewModel.deleteFromCart(
+                    serviceID.toString(),
+                    firebaseAuth.currentUser?.uid.toString()
+                )
+                binding?.heartImage?.visibility = View.GONE
+                binding?.btnLike?.text = "Like this Service"
+
+            } else {
+                servicesListViewModel.addToCart(
+                    serviceID.toString(),
+                    firebaseAuth.currentUser?.uid.toString()
+                )
+                binding?.heartImage?.visibility = View.VISIBLE
+                binding?.btnLike?.text = "Unlike this Service"
+            }
+
+            CoroutineScope(Dispatchers.Main).launch {
+                delay(1000) // Suspend the coroutine for the delay duration
+                //reload the service list data
+                viewModel.getServiceList(firebaseAuth.currentUser?.uid.toString())
+            }
+
+        }
+    }
 
 
     override fun onDestroyView() {
@@ -110,7 +193,6 @@ class ServiceDetailFragment(image: String?, name: String?, tittle: String?) : Di
         val month = calendar.get(Calendar.MONTH)
         val day = calendar.get(Calendar.DAY_OF_MONTH)
 
-        // Create a new instance of DatePickerDialog and show
         DatePickerDialog(requireContext(), this, year, month, day).show()
     }
 
@@ -119,46 +201,69 @@ class ServiceDetailFragment(image: String?, name: String?, tittle: String?) : Di
         val hours = calendar.get(Calendar.HOUR_OF_DAY)
         val minutes = calendar.get(Calendar.MINUTE)
 
-        TimePickerDialog(
-            requireContext(),
-            this,
-            hours,
-            minutes,
-            true
-        ).show() // Show time picker dialog
+        TimePickerDialog(requireContext(), this, hours, minutes, true).show()
     }
 
     // Callback when the user selects a date
     override fun onDateSet(view: DatePicker?, year: Int, month: Int, dayOfMonth: Int) {
-        selectedDate = String.format("%04d-%02d-%02d", year, month + 1, dayOfMonth) // Store selected date
-        Toast.makeText(requireContext(), "Selected Date: $selectedDate", Toast.LENGTH_SHORT).show()
-
-        // Optionally, you can proceed to select time immediately after selecting the date
+        selectedDate = String.format("%04d-%02d-%02d", year, month + 1, dayOfMonth)
         showTimePickerDialog()
     }
 
-    // Callback when the user selects a time
+
     override fun onTimeSet(view: TimePicker?, hourOfDay: Int, minute: Int) {
         selectedTime = String.format("%02d:%02d", hourOfDay, minute)
         val calendar = Calendar.getInstance()
         calendar.set(Calendar.HOUR_OF_DAY, hourOfDay)
         calendar.set(Calendar.MINUTE, minute)
         val timeInMillis = calendar.timeInMillis
-
         val dateTime = "$selectedDate $selectedTime"
-        Toast.makeText(requireContext(), "Selected Date and Time: $dateTime", Toast.LENGTH_SHORT).show()
-
 
         addEventToCalendar(
             requireContext(),
-            title ="You have booked a event" ,
-            description = binding?.title?.text.toString(),
+            title = "You have booked an event",
+            description = tittle.toString(),
             timeInMillis = timeInMillis
         )
-        Toast.makeText(requireContext(), "Selected Date and Time: $dateTime", Toast.LENGTH_SHORT).show()
 
-        // Navigate to SelectedDateFragment
         navigateToSelectedDateFragment()
+    }
+
+    private fun addEventToCalendar(
+        context: Context,
+        title: String,
+        description: String,
+        timeInMillis: Long
+    ) {
+        val calendarId = 1L // Update with the appropriate calendar ID from your device
+
+        val values = ContentValues().apply {
+            put(CalendarContract.Events.DTSTART, timeInMillis)
+            put(
+                CalendarContract.Events.DTEND,
+                timeInMillis + 60 * 60 * 1000
+            ) // Event duration is 1 hour
+            put(CalendarContract.Events.TITLE, title)
+            put(CalendarContract.Events.DESCRIPTION, description)
+            put(CalendarContract.Events.CALENDAR_ID, calendarId)
+            put(CalendarContract.Events.EVENT_TIMEZONE, TimeZone.getDefault().id)
+        }
+
+        try {
+            val uri = context.contentResolver.insert(CalendarContract.Events.CONTENT_URI, values)
+            notificationComponent.showNotification("event", "Event added successfully")
+
+            if (uri != null) {
+                Toast.makeText(context, "Event added successfully!", Toast.LENGTH_SHORT).show()
+            } else {
+                Toast.makeText(context, "Failed to add event to calendar.", Toast.LENGTH_SHORT)
+                    .show()
+            }
+        } catch (e: SecurityException) {
+            Toast.makeText(context, "Permission denied for adding to calendar.", Toast.LENGTH_LONG)
+                .show()
+            e.printStackTrace()
+        }
     }
 
     private fun navigateToSelectedDateFragment() {
@@ -168,48 +273,4 @@ class ServiceDetailFragment(image: String?, name: String?, tittle: String?) : Di
             .addToBackStack(null)
             .commit()
     }
-    private fun addEventToCalendar(context: Context, title: String, description: String, timeInMillis: Long) {
-        val calendarId = 3L
-
-        val values = ContentValues().apply {
-            put(CalendarContract.Events.DTSTART, timeInMillis)
-            put(CalendarContract.Events.DTEND, timeInMillis + 60 * 60 * 1000) // 默认事件持续时间为1小时
-            put(CalendarContract.Events.TITLE, title)
-            put(CalendarContract.Events.DESCRIPTION, description)
-            put(CalendarContract.Events.CALENDAR_ID, calendarId)
-            put(CalendarContract.Events.EVENT_TIMEZONE, TimeZone.getDefault().id)
-        }
-
-        try {
-            val uri = context.contentResolver.insert(CalendarContract.Events.CONTENT_URI, values)
-            if (uri != null) {
-                Toast.makeText(context, "Event added successfully!", Toast.LENGTH_SHORT).show()
-                println("Event URI: $uri")
-            } else {
-                Toast.makeText(context, "Failed to add event to calendar.", Toast.LENGTH_SHORT).show()
-            }
-        } catch (e: SecurityException) {
-            Toast.makeText(context, "Permission denied for adding to calendar.", Toast.LENGTH_LONG).show()
-            println("Error: ${e.message}")
-        }
-    }
-
-    private fun getCalendars(context: Context) {
-        val uri = CalendarContract.Calendars.CONTENT_URI
-        val projection = arrayOf(
-            CalendarContract.Calendars._ID,
-            CalendarContract.Calendars.NAME,
-            CalendarContract.Calendars.ACCOUNT_NAME
-        )
-        val cursor = context.contentResolver.query(uri, projection, null, null, null)
-        cursor?.use {
-            while (it.moveToNext()) {
-                val id = it.getLong(0)
-                val name = it.getString(1)
-                val accountName = it.getString(2)
-                println("Calendar ID: $id, Name: $name, Account: $accountName")
-            }
-        }
-    }
-
 }

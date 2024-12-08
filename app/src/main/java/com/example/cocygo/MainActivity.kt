@@ -1,14 +1,19 @@
 package com.example.cocygo
 
+import android.Manifest
 import android.annotation.SuppressLint
 import android.content.pm.PackageManager
 import android.os.Build
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
-import android.os.PersistableBundle
 import android.view.MenuItem
 import android.view.View
+import android.view.animation.AlphaAnimation
+import android.view.animation.Animation
+import android.view.animation.Animation.AnimationListener
+import android.view.animation.TranslateAnimation
+import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
@@ -20,8 +25,6 @@ import com.example.cocygo.databinding.ActivityMainBinding
 import com.example.cocygo.homeFragment.HomeFragment
 import com.example.cocygo.intro.SlidePageMenuFragment
 import com.example.cocygo.signIn.SignInViewModel
-import android.Manifest
-
 
 class MainActivity : AppCompatActivity() {
 
@@ -35,7 +38,16 @@ class MainActivity : AppCompatActivity() {
         requestNotificationPermission()
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        requestNotificationPermission()
+        //       check display mode
+        val isDarkMode = (resources.configuration.uiMode
+                and android.content.res.Configuration.UI_MODE_NIGHT_MASK) == android.content.res.Configuration.UI_MODE_NIGHT_YES
+        if (isDarkMode) {
+
+
+            binding.ConstraintLayout.setBackgroundColor(ContextCompat.getColor(this, R.color.primary_dark_background))
+        } else {
+            binding.ConstraintLayout.setBackgroundColor(ContextCompat.getColor(this, R.color.primary_light))
+        }
         // Observe the signInFlag LiveData
         signInViewModel.signInFlag.observe(this) { success ->
             if (success) {
@@ -45,13 +57,60 @@ class MainActivity : AppCompatActivity() {
                 // Handle failed sign-in if needed
             }
         }
-
-        // Show the welcome message for 5 seconds
         Handler(Looper.getMainLooper()).postDelayed({
-            loadFragment(SlidePageMenuFragment())
-            binding.textWelcome.visibility = View.GONE
-            binding.imageWelcome.visibility = View.GONE
-        }, 5000) // 5000 milliseconds = 5 seconds
+            // Animation for imageWelcome (up to down)
+            val imageAnimation = TranslateAnimation(
+                0f,  // Start X position (no horizontal movement)
+                0f,  // End X position
+                -500f,  // Start Y position (above the screen)
+                0f   // End Y position (original position)
+            ).apply {
+                duration = 2000 // 2 seconds
+                fillAfter = true // Keep the view at the end position after animation
+            }
+            binding.imageWelcome.startAnimation(imageAnimation)
+
+            imageAnimation.setAnimationListener(object : Animation.AnimationListener {
+                override fun onAnimationStart(animation: Animation?) {
+                }
+
+                override fun onAnimationRepeat(animation: Animation?) {}
+
+                override fun onAnimationEnd(animation: Animation?) {
+                    // Animation for textWelcome (down to up)
+                    val textAnimation = TranslateAnimation(
+                        0f,  // Start X position (no horizontal movement)
+                        0f,  // End X position
+                        500f,  // Start Y position (below the screen)
+                        0f   // End Y position (original position)
+                    ).apply {
+                        duration = 2000 // 2 seconds
+                        fillAfter = true // Keep the view at the end position after animation
+                    }
+                    binding.textWelcome.startAnimation(textAnimation)
+
+                    textAnimation.setAnimationListener(object : Animation.AnimationListener {
+                        override fun onAnimationStart(animation: Animation?) {
+                        }
+
+                        override fun onAnimationRepeat(animation: Animation?) {}
+
+                        override fun onAnimationEnd(animation: Animation?) {
+                            // Set visibility to GONE after both animations are completed
+                            binding.textWelcome.visibility = View.GONE
+                            binding.textWelcome.clearAnimation()
+
+                            binding.imageWelcome.visibility = View.GONE
+                            binding.imageWelcome.clearAnimation()
+
+                            // Load the next fragment
+                            loadFragment(SlidePageMenuFragment())
+                        }
+                    })
+                }
+            })
+        }, 6000) // Delay for 5 seconds
+
     }
 
     private fun setupBottomNavigation() {
@@ -68,9 +127,11 @@ class MainActivity : AppCompatActivity() {
             R.id.nav_home -> {
                 loadFragment(HomeFragment())
             }
+
             R.id.nav_appointments -> {
                 loadFragment(SelectedDateFragment())
             }
+
             R.id.nav_Loc -> {
                 loadFragment(LocationFragment())
             }

@@ -32,11 +32,10 @@
         <TextView
             android:id="@+id/title"
             style="@style/TextAppearance.MaterialComponents.Headline3"
-            android:layout_width="match_parent"
+            android:layout_width="284dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="4dp"
             android:text="I'm a title"
-            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/header_image" />
 
@@ -80,12 +79,32 @@
             android:layout_width="300dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="30dp"
-            android:layout_marginBottom="10dp"
             android:backgroundTint="@color/yellow"
             android:text="Book Now"
-            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/body_scroll" />
+
+        <Button
+            android:id="@+id/btnLike"
+            android:layout_width="300dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:layout_marginBottom="10dp"
+            android:backgroundTint="@color/yellow"
+            android:text="Like this Service"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/btnBook" />
+
+        <ImageView
+            android:id="@+id/heart_image"
+            android:layout_width="54dp"
+            android:layout_height="41dp"
+            android:src="@drawable/heart_red"
+            app:layout_constraintBottom_toTopOf="@+id/body_scroll"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/header_image" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,6 +1,8 @@
 package com.example.cocygo.homeFragment
 
+import LanguageFragment
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.View
 import androidx.lifecycle.ViewModelProvider
@@ -30,17 +32,23 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
 
         // Observe LiveData from ViewModel
         viewModel.items.observe(viewLifecycleOwner) { items ->
-            adapter = ItemAdapter(items) { item ->
+            adapter = ItemAdapter( items) { item ->
+                Log.d("Change liked visibility:", item.likeStatus.toString())
                 // Handle item click if needed
-               // Toast.makeText(requireContext(), "Clicked: ${item.name}", Toast.LENGTH_SHORT).show()
-                val serviceDetailFragment = ServiceDetailFragment(item.image,item.name,item.tittle)
-                //  addToBackStack(null) allows the user to press the back button to return to FirstFragment.
+                // Toast.makeText(requireContext(), "Clicked: ${item.name}", Toast.LENGTH_SHORT).show()
+                val serviceDetailFragment = ServiceDetailFragment(item.id, item.image, item.name, item.tittle, item.likeStatus)
+                // addToBackStack(null) allows the user to press the back button to return to FirstFragment.
                 parentFragmentManager.beginTransaction()
                     .replace(R.id.fragment_container, serviceDetailFragment)
                     .addToBackStack(null)
                     .commit()
             }
             recyclerView.adapter = adapter
+        }
+        if (childFragmentManager.findFragmentById(R.id.language_fragment_container) == null) {
+            childFragmentManager.beginTransaction()
+                .add(R.id.language_fragment_container, LanguageFragment())
+                .commit()
         }
     }
 }
