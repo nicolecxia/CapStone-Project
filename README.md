@@ -1,6 +1,7 @@
 # CapStone-Project
 
-For Capstone Project
+- For Capstone Project
+- https://www.youtube.com/shorts/7U6CGERTSeY
 
 ## Group
 
