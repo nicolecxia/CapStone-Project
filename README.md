@@ -3,10 +3,6 @@
 - For Capstone Project
 - Demostration Video: https://www.youtube.com/shorts/7U6CGERTSeY
 
-## Group
-
-**S1G1**
-
 ## Description
 
 Hairdresser Booking App
@@ -33,9 +29,6 @@ Qihan Wang
 Arezou Ghorbani
 Changqing Xia
 Irina Ignatenok
-
-## App Name  
-CozyGo
 
 ## Features
 
