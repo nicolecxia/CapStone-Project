@@ -1,4 +1,4 @@
-# CapStone-Project
+# CozyGO App
 
 - For Capstone Project
 - Demostration Video: https://www.youtube.com/shorts/7U6CGERTSeY
