@@ -1,7 +1,7 @@
 # CapStone-Project
 
 - For Capstone Project
-- https://www.youtube.com/shorts/7U6CGERTSeY
+- Demostration Video: https://www.youtube.com/shorts/7U6CGERTSeY
 
 ## Group
 
